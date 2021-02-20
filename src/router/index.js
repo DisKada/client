@@ -23,7 +23,7 @@ const routes = [
     component: LoginAndRegisterPage
   },
   {
-    path: '/about',
+    path: '/about/:name',
     name: 'About',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
@@ -36,6 +36,18 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (localStorage.access_token && to.name === 'LoginAndRegisterPage') {
+    next({ name: 'Home' })
+  } else if (localStorage.access_token) {
+    next()
+  } else if (to.name === 'LoginAndRegisterPage') {
+    next()
+  } else {
+    next({ name: 'LoginAndRegisterPage' })
+  }
 })
 
 export default router

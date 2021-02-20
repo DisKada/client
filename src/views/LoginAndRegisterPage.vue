@@ -5,19 +5,19 @@
                 <form>
                     <h1>Create Account</h1>
                     <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button @click="toHome">Sign Up</button>
+                    <input type="text" v-model="userRegist.username" placeholder="Name" />
+                    <input type="email" v-model="userRegist.email" placeholder="Email" />
+                    <input type="password" v-model="userRegist.password" placeholder="Password" />
+                    <button @click.prevent="register">Sign Up</button>
                 </form>
             </div>
             <div class="form-container sign-in-container">
                 <form>
                     <h1>Sign in</h1>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button @click="toHome">Sign In</button>
+                    <input type="email" v-model="user.email" placeholder="Email" />
+                    <input type="password" v-model="user.password" placeholder="Password" />
+                    <button @click.prevent="login">Sign In</button>
                 </form>
             </div>
             <div class="overlay-container">
@@ -42,14 +42,24 @@
 export default {
   data () {
     return {
-      name: '',
-      email: '',
-      password: ''
+      user: {
+        email: '',
+        password: ''
+      },
+      userRegist: {
+        email: '',
+        password: '',
+        username: ''
+      }
     }
   },
   methods: {
-    toHome () {
-      this.$router.push({ path: '/' })
+    login () {
+      this.$store.dispatch('login', this.user)
+      this.$socket.emit('login', this.user.email)
+    },
+    register () {
+      this.$store.dispatch('register', this.userRegist)
     }
   },
   mounted () {
