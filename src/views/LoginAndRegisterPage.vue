@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="loginAndRegisterBox">
         <div class="container" id="container">
             <div class="form-container sign-up-container">
                 <form>
