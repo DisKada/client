@@ -1,6 +1,8 @@
 :root {
     --base-grid: 8px;
-    --colour-body-background: #e40017;
+    --colour-body-background: #FF416C;
+        background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+        background: linear-gradient(to right, #FF4B2B, #FF416C);
     --colour-background: #fff;
     --colour-background-folded: #f5f5f5;
     --colour-background-stripes: rgba(255,255,255,.5);
