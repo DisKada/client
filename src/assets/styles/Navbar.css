@@ -2,5 +2,35 @@
     width: 5rem;
     height: 100vh;
     position: fixed;
-    background-color:#e40017;
+    background: #FF416C;
+        background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+        background: linear-gradient(to right, #FF4B2B, #FF416C);
+}
+
+.nav-link {
+    cursor: pointer;
+    color: #333;
+    margin-top: 20px;
+}
+
+.nav-link:hover {
+    color: wheat;
+}
+
+.navbar-nav {
+    list-style: none;
+    padding: 0;
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-item {
+    width: 100%;
+}
+
+.nav-item:last-child {
+    margin-top: auto;
 }
