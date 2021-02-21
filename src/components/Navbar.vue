@@ -41,7 +41,7 @@ export default {
       this.$router.push({ path: '/' })
     },
     toProfile () {
-      this.$router.push({ path: '/profile' })
+      this.$router.push({ path: '/profile/:id' })
     },
     toListRoom () {
       this.$router.push({ path: '/rooms' })

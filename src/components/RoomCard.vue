@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="toRoom">
     <ol class="articles">
         <li class="articles__article" style="--animation-order:1"><a class="articles__link">
             <div class="articles__content articles__content--lhs">
@@ -23,7 +23,11 @@
 
 <script>
 export default {
-
+  methods: {
+    toRoom () {
+      this.$router.push({ path: '/room/:id' })
+    }
+  }
 }
 </script>
 

@@ -1,0 +1,52 @@
+.userProfileBoard .userProfileBox {
+    width: 400px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 30%;
+}
+
+.userData {
+    width: 600px;
+    height: 800px;
+    margin-top: 100px;
+    border-radius: 10px;
+    background: #FF416C;
+                background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
+                background: linear-gradient(to right, #FF4B2B, #FF416C);
+    transition: 0.5s;         
+    cursor: pointer;   
+}
+
+.userData:hover {
+    box-shadow: 0 28px 50px rgba(0,0,0,0.25), 
+                0 20px 20px rgba(0,0,0,0.22);
+    transition: 0.5s;
+}
+.userData img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-top: 60px;
+}
+.userInformation {
+    margin-top: 40px;
+    color: wheat;
+}
+
+.userInformation .userName {
+    margin-top: 70px;
+}
+
+.userInformation .userName h1 {
+    font-size: 70px;
+}
+
+.userInformation .userEmail label{
+    margin-top: 50px;
+    font-size: 30px;
+}
+
+.userInformation .userEmail p {
+    font-size: 40px;
+}

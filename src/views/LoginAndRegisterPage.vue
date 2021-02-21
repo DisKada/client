@@ -40,6 +40,7 @@
 
 <script>
 export default {
+  name: 'login&register',
   data () {
     return {
       name: '',
@@ -68,6 +69,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   @import '../assets/styles/Login&Register.css';
 </style>

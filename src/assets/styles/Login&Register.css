@@ -12,19 +12,20 @@
         flex-direction: column;
         font-family: 'Montserrat', sans-serif;
         height: 100vh;
-        margin: -20px 0 50px;
+        margin: -20px 0 50px; 
+        margin-bottom: -50%;
     }
 
-    h1 {
+    .loginAndRegisterBox h1 {
         font-weight: bold;
         margin: 0;
     }
 
-    h2 {
+    .loginAndRegisterBox h2 {
         text-align: center;
     }
 
-    p {
+    .loginAndRegisterBox p {
         font-size: 14px;
         font-weight: 100;
         line-height: 20px;
