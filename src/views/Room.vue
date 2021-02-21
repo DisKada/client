@@ -6,7 +6,7 @@
               <div class="videoBox">
 
               </div>
-              <button>keluar</button>
+              <button @click="toHome">keluar</button>
           </div>
           <div class="chatBox">
               <BubbleChat/>
@@ -37,6 +37,9 @@ export default {
     BubbleChat
   },
   methods: {
+    toHome () {
+      this.$router.push({ path: '/rooms' })
+    }
   }
 }
 </script>
