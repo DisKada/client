@@ -2,13 +2,13 @@
     <div class="loginAndRegisterBox">
         <div class="container" id="container">
             <div class="form-container sign-up-container">
-                <form>
+                <form @submit.prevent="register">
                     <h1>Create Account</h1>
                     <span>or use your email for registration</span>
                     <input type="text" v-model="userRegist.username" placeholder="Name" />
                     <input type="email" v-model="userRegist.email" placeholder="Email" />
                     <input type="password" v-model="userRegist.password" placeholder="Password" />
-                    <button @click.prevent="register">Sign Up</button>
+                    <button type="submit">Sign Up</button>
                 </form>
             </div>
             <div class="form-container sign-in-container">
