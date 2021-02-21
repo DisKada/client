@@ -1,0 +1,103 @@
+.dashboardRoom {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: -50%;
+}
+
+.upperRoom button{
+    height: 40px;
+    width: 150px;
+    margin-top: 30px;
+    margin-left: 30px;
+    border-radius: 10px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: 0.5s;
+}
+
+.upperRoom button:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
+}
+
+.upperRoom button:active {
+    transition: 0.5s;
+    transform: scale(1);
+}
+
+.dashboardRoom .videoBox {
+    height: 400px;
+    width: 600px;
+    background-color: yellow;
+    margin-top: 30px;
+    border-radius: 10px;
+    -webkit-box-shadow: 0 10px 6px 10px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+         box-shadow: 8px 15px 12px -4px #777;
+}
+
+.dashboardRoom .chatBox {
+    display: table-cell;
+    flex-direction: column;
+    vertical-align: bottom;
+    margin-top: 20px;
+    overflow-y: scroll;
+    width: 1000px;
+    height: 300px;
+    background-color: transparent;
+    border-radius: 10px;
+    border: 5px double black;
+    -webkit-box-shadow: 0 10px 6px -6px #777;
+    -moz-box-shadow: 0 10px 6px -6px #777;
+         box-shadow: 0 10px 6px -6px #777;
+}
+
+.dashboardRoom .chatBox::-webkit-scrollbar {
+    width: 0.8rem;
+}
+
+.dashboardRoom .chatBox::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+}
+
+.dashboardRoom .inputChat {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboardRoom .inputChat input{
+    margin-top: 20px;
+    width: 800px;
+    height: 50px;
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow:
+        0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+        0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+        0 12.5px 10px rgba(0, 0, 0, 0.06),
+        0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+        0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+        0 100px 80px rgba(0, 0, 0, 0.12)
+}
+
+.dashboardRoom .inputChat button {
+    margin-top: 20px;
+    margin-left: 50px;
+    height: 50px;
+    width: 100px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.dashboardRoom .inputChat button:hover {
+    transition: 0.5s;
+    transform: scale(1.1);
+}
+
+.dashboardRoom .inputChat button:active {
+    transform: scale(1);
+}

@@ -1,16 +1,28 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import ListCalonPage from '../views/ListCalonPage.vue'
 import LoginAndRegisterPage from '../views/LoginAndRegisterPage.vue'
 import ListRoomPage from '../views/ListRoomPage.vue'
+import UserProfile from '../views/UserProfile.vue'
+import Room from '../views/Room.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'ListCalonPage',
+    component: ListCalonPage
+  },
+  {
+    path: '/room/:id',
+    name: 'Room',
+    component: Room
+  },
+  {
+    path: '/profile/:id',
+    name: 'UserProfile',
+    component: UserProfile
   },
   {
     path: '/rooms',
