@@ -2,11 +2,8 @@
   <div class="home">
     <Navbar/>
     <h1>List Calon</h1>
-    <div class="ListCalonBox">
-        <CardCalon/>
-        <CardCalon/>
-        <CardCalon/>
-        <CardCalon/>
+    <div class="ListCalonBox" v-if="isLoading === false">
+        <CardCalon v-for="profile in profiles" :key="profile.id" :profile="profile"/>
     </div>
   </div>
 </template>
@@ -20,6 +17,17 @@ export default {
   components: {
     Navbar,
     CardCalon
+  },
+  created () {
+    this.$store.dispatch('fetchAllVerified')
+  },
+  computed: {
+    profiles () {
+      return this.$store.state.profiles
+    },
+    isLoading () {
+      return this.$store.state.isLoading
+    }
   }
 }
 </script>
