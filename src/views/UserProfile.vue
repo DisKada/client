@@ -7,11 +7,11 @@
           <img src="https://mojok.co/terminal/wp-content/uploads/2019/11/deddy-800x540.jpg" >
           <div class="userInformation">
             <div class="userName">
-              <h1>Om botak</h1>
+              <h1>{{profile.username}}</h1>
             </div>
             <div class="userEmail">
               <label for="email"> email :</label>
-              <p>botakseng@gmail.com</p>
+              <p>{{profile.email}}</p>
             </div>
           </div>
         </div>
@@ -26,6 +26,14 @@ export default {
   name: 'UserProfile',
   components: {
     Navbar
+  },
+  created () {
+    this.$store.dispatch('fetchProfile')
+  },
+  computed: {
+    profile () {
+      return this.$store.state.profile
+    }
   }
 }
 </script>

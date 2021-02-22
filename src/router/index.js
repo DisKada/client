@@ -50,4 +50,18 @@ const router = new VueRouter({
   routes
 })
 
+router.beforeEach((to, from, next) => {
+  if (localStorage.access_token && to.name === 'LoginAndRegisterPage') {
+    next({ name: 'ListCalonPage' })
+  } else if (localStorage.access_token && to.name === 'LoginAndRegisterPage') {
+    next({ name: 'ListCalonPage' })
+  } else if (localStorage.access_token) {
+    next()
+  } else if (to.name === 'LoginAndRegisterPage' || to.name === 'LoginAndRegisterPage') {
+    next()
+  } else {
+    next({ name: 'LoginAndRegisterPage' })
+  }
+})
+
 export default router
