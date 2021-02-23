@@ -5,20 +5,35 @@
         <h1>Calon Profile</h1>
       <div class="userProfileBox">
         <div  class="userData">
-          <img src="https://mojok.co/terminal/wp-content/uploads/2019/11/deddy-800x540.jpg" >
+          <img :src="getDetail.image" >
           <div class="userInformation">
             <div class="userName">
-              <h1>Om botak</h1>
+              <h1>{{getDetail.username}}</h1>
+            </div>
+            <div class="BakalCalon">
+              <label for="Bakal Calon"> Bakal Calon :</label>
+              <p>{{getDetail.calon}}</p>
             </div>
             <div class="userVisi">
               <label for="visi"> visi :</label>
-              <p>mensejahterakan bangsa</p>
+              <p>{{getDetail.visi}}</p>
             </div>
             <div class="userMisi">
               <label for="misi"> misi :</label>
-              <p>mensejahterakan bangsa</p>
+              <p>{{getDetail.misi}}</p>
             </div>
-            <button @click="toEditCalon">edit</button>
+            <div class="partai">
+              <label for="partai"> partai :</label>
+              <p>{{getDetail.partai}}</p>
+            </div>
+            <div class="pendidikan">
+              <label for="pendidikan"> pendidikan :</label>
+              <p>{{getDetail.pendidikan}}</p>
+            </div>
+            <div class="pekerjaan">
+              <label for="pekerjaan"> pekerjaan :</label>
+              <p>{{getDetail.pekerjaan}}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -29,13 +44,15 @@
 <script>
 import Navbar from '../components/Navbar'
 export default {
-  name: 'UserProfile',
+  name: 'DetailCalon',
   components: {
     Navbar
   },
   methods: {
-    toEditCalon () {
-      this.$router.push({ path: '/edit/calon/:id' })
+  },
+  computed: {
+    getDetail () {
+      return this.$store.state.getDetail
     }
   }
 }

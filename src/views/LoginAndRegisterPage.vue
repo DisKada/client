@@ -60,6 +60,7 @@ export default {
       this.$store.dispatch('register', this.userRegist)
     },
     toHome () {
+      // console.log('masuk sini')
       this.$store.dispatch('login', this.user)
     }
   },

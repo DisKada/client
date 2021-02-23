@@ -2,7 +2,7 @@
   <div class="home">
     <Navbar/>
     <h1>List Calon</h1>
-    <div class="ListCalonBox" v-if="isLoading === false">
+    <div class="ListCalonBox" >
         <CardCalon v-for="profile in profiles" :key="profile.id" :profile="profile"/>
     </div>
   </div>
