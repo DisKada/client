@@ -2,6 +2,7 @@
   <div class="profileUser">
     <Navbar/>
     <div class="userProfileBoard col-12">
+      <h1>User Profile</h1>
       <div class="userProfileBox">
         <div  class="userData">
           <img src="https://mojok.co/terminal/wp-content/uploads/2019/11/deddy-800x540.jpg" >
@@ -13,6 +14,7 @@
               <label for="email"> email :</label>
               <p>{{profile.email}}</p>
             </div>
+            <button @click="toEditUser">edit</button>
           </div>
         </div>
       </div>
@@ -26,6 +28,11 @@ export default {
   name: 'UserProfile',
   components: {
     Navbar
+  },
+  methods: {
+    toEditUser () {
+      this.$router.push({ path: '/edit/user/:id' })
+    }
   },
   created () {
     this.$store.dispatch('fetchProfile')

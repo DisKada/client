@@ -10,7 +10,7 @@
         <div class="title">Bakal Calon Gubernur Jawa barat</div>
         <div class="actions">
             <div class="follow-btn">
-            <button>Detail</button>
+            <button @click="toDetailCalon">Detail</button>
             </div>
         </div>
         <div class="desc">Visi mensejahterakan anak anak bangsa, agar semakin mantap</div>
@@ -20,6 +20,11 @@
 
 <script>
 export default {
+  methods: {
+    toDetailCalon () {
+      this.$router.push({ path: '/calon/:id' })
+    }
+  },
   name: 'CardCalon',
   props: ['profile']
 }
