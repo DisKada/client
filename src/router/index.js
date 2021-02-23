@@ -4,6 +4,9 @@ import ListCalonPage from '../views/ListCalonPage.vue'
 import LoginAndRegisterPage from '../views/LoginAndRegisterPage.vue'
 import ListRoomPage from '../views/ListRoomPage.vue'
 import UserProfile from '../views/UserProfile.vue'
+import DetailCalon from '../views/DetailCalon.vue'
+import editProfileUser from '../views/editProfileUser.vue'
+import editCalon from '../views/editCalon.vue'
 import Room from '../views/Room.vue'
 
 Vue.use(VueRouter)
@@ -13,6 +16,26 @@ const routes = [
     path: '/',
     name: 'ListCalonPage',
     component: ListCalonPage
+  },
+  {
+    path: '/edit/calon/:id',
+    name: 'editCalon',
+    component: editCalon
+  },
+  {
+    path: '/',
+    name: 'ListCalonPage',
+    component: ListCalonPage
+  },
+  {
+    path: '/edit/user/:id',
+    name: 'editProfileUser',
+    component: editProfileUser
+  },
+  {
+    path: '/calon/:id',
+    name: 'DetailCalon',
+    component: DetailCalon
   },
   {
     path: '/room/:id',

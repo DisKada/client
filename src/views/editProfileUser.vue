@@ -2,19 +2,21 @@
   <div class="profileUser">
     <Navbar/>
     <div class="userProfileBoard col-12">
-      <h1>User Profile</h1>
+      <h1>Edit User Profile</h1>
       <div class="userProfileBox">
         <div  class="userData">
-          <img src="https://mojok.co/terminal/wp-content/uploads/2019/11/deddy-800x540.jpg" >
           <div class="userInformation">
-            <div class="userName">
-              <h1>Om botak</h1>
-            </div>
-            <div class="userEmail">
-              <label for="email"> email :</label>
-              <p>botakseng@gmail.com</p>
-            </div>
-            <button @click="toEditUser">edit</button>
+            <form>
+                <div class="userName">
+                    <label for="name"> name :</label>
+                    <input type="text">
+                </div>
+                <div class="userEmail">
+                    <label type="text" for="email"> email :</label>
+                    <input>
+                </div>
+                <button type="submit">edit</button>
+            </form>
           </div>
         </div>
       </div>
@@ -28,11 +30,6 @@ export default {
   name: 'UserProfile',
   components: {
     Navbar
-  },
-  methods: {
-    toEditUser () {
-      this.$router.push({ path: '/edit/user/:id' })
-    }
   }
 }
 </script>
@@ -41,5 +38,8 @@ export default {
   @import '../assets/styles/ProfileUser.css';
   .profileUser {
     margin-bottom: -50%;
+  }
+  label {
+    color: black
   }
 </style>
