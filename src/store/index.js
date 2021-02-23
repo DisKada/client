@@ -76,7 +76,6 @@ export default new Vuex.Store({
       state.getEdit.partai = payload.partai
       state.getEdit.pendidikan = payload.pendidikan
       state.getEdit.calon = payload.calon
-      state.getEdit.image = payload.image
       state.getEdit.pekerjaan = payload.pekerjaan
     },
     getDetail (state, payload) {
@@ -89,6 +88,9 @@ export default new Vuex.Store({
       state.getDetail.calon = payload.calon
       state.getDetail.image = payload.image
       state.getDetail.pekerjaan = payload.pekerjaan
+    },
+    uploadImg (state, payload) {
+      state.getEdit.image = payload
     }
   },
   actions: {
