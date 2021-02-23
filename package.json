@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
+    "firebase": "^8.2.9",
     "sweetalert2": "^10.15.4",
     "vue": "^2.6.11",
     "vue-lottie": "^0.2.1",
