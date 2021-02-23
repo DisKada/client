@@ -5,19 +5,19 @@
                 <form>
                     <h1>Create Account</h1>
                     <span>or use your email for registration</span>
-                    <input type="text" placeholder="Name" />
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button @click="toHome">Sign Up</button>
+                    <input type="text" placeholder="Name" v-model="userRegist.username"/>
+                    <input type="email" placeholder="Email" v-model="userRegist.email" />
+                    <input type="password" placeholder="Password" v-model="userRegist.password" />
+                    <button @click.prevent="toLogin">Sign Up</button>
                 </form>
             </div>
             <div class="form-container sign-in-container">
                 <form>
                     <h1>Sign in</h1>
                     <span>or use your account</span>
-                    <input type="email" placeholder="Email" />
-                    <input type="password" placeholder="Password" />
-                    <button @click="toHome">Sign In</button>
+                    <input type="email" placeholder="Email" v-model="user.email" />
+                    <input type="password" placeholder="Password" v-model="user.password"/>
+                    <button @click.prevent="toHome">Sign In</button>
                 </form>
             </div>
             <div class="overlay-container">
@@ -43,14 +43,24 @@ export default {
   name: 'login&register',
   data () {
     return {
-      name: '',
-      email: '',
-      password: ''
+      userRegist: {
+        username: '',
+        email: '',
+        password: ''
+      },
+      user: {
+        email: '',
+        password: ''
+      }
     }
   },
   methods: {
+    toLogin () {
+      console.log('masuk sini')
+      this.$store.dispatch('register', this.userRegist)
+    },
     toHome () {
-      this.$router.push({ path: '/' })
+      this.$store.dispatch('login', this.user)
     }
   },
   mounted () {

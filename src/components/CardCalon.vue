@@ -6,7 +6,7 @@
         </div>
         <div class="menu">
         </div>
-        <h2 class="name">Om Botak</h2>
+        <h2 class="name">{{profile.username}}</h2>
         <div class="title">Bakal Calon Gubernur Jawa barat</div>
         <div class="actions">
             <div class="follow-btn">
@@ -24,7 +24,9 @@ export default {
     toDetailCalon () {
       this.$router.push({ path: '/calon/:id' })
     }
-  }
+  },
+  name: 'CardCalon',
+  props: ['profile']
 }
 </script>
 
