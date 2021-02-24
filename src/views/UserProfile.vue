@@ -1,14 +1,14 @@
 <template>
   <div class="user-profile">
     <Navbar/>
-    <div class="container-fluid">
-      <div class="row" style="min-height: 50vh">
+    <div class="container-fluid ps-5">
+      <div class="row" style="min-height: 100vh">
         <div class="col-4 d-flex flex-column align-items-center justify-content-center rounded-3">
           <img
             :src="profile.image"
-            class="img-fluid shadow rounded-3 ms-5"
+            class="img-fluid ms-5 p-3"
             alt="User Pict"
-            style="background-color: #CFD8DC; border-style: solid; max-height: 80vh; min-height: 50vh;"
+            style="max-height: 80vh; min-height: 50vh;"
           />
         </div>
         <div class="col-8 d-flex flex-column align-items-center justify-content-evenly">
@@ -84,7 +84,7 @@ export default {
 }
 </script>
 
-<style scopped>
+<style scoped>
   @import '../assets/styles/newCss.css';
   .user-profile {
     text-align: justify;
