@@ -2,19 +2,17 @@
     width: 5rem;
     height: 100vh;
     position: fixed;
-    background: #FF416C;
-        background: -webkit-linear-gradient(to right, #FF4B2B, #FF416C);
-        background: linear-gradient(to right, #FF4B2B, #FF416C);
+    background: #F44336;
 }
 
 .nav-link {
     cursor: pointer;
-    color: #333;
+    color: #CFD8DC;
     margin-top: 20px;
 }
 
 .nav-link:hover {
-    color: wheat;
+    color: #F5F5F5;
 }
 
 .navbar-nav {

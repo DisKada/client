@@ -1,6 +1,7 @@
 <template>
+<div>
+  <Navbar/>
   <div class="user-profile">
-    <Navbar/>
     <div class="container-fluid ps-5">
       <div class="row" style="min-height: 100vh">
         <div class="col-4 d-flex flex-column align-items-center justify-content-center" style="border: 0.3rem solid #E57373;">
@@ -59,6 +60,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
