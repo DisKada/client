@@ -40,7 +40,7 @@
             <h5 class="m-1 text-muted heading">Visi</h5>
             <p class="m-1 p-costum">{{profile.visi}}</p>
           </div>
-          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Misi</h5>
             <p class="m-1 p-costum">{{profile.misi}}</p>
           </div>
