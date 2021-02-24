@@ -53,7 +53,9 @@ export default new Vuex.Store({
       pendidikan: '',
       calon: '',
       image: '',
-      pekerjaan: ''
+      pekerjaan: '',
+      tanggal_lahir: '',
+      tempat_lahir: ''
     },
     profiles: [],
     isLoading: true
@@ -132,6 +134,8 @@ export default new Vuex.Store({
       state.getDetail.calon = payload.calon
       state.getDetail.image = payload.image
       state.getDetail.pekerjaan = payload.pekerjaan
+      state.getDetail.tanggal_lahir = payload.tanggal_lahir
+      state.getDetail.tempat_lahir = payload.tempat_lahir
     },
     uploadImg (state, payload) {
       state.getEdit.image = payload
