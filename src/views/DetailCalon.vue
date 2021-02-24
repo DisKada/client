@@ -1,38 +1,53 @@
 <template>
-  <div class="profileUser">
+  <div class="detail">
     <Navbar/>
-    <div class="userProfileBoard col-12">
-        <h1>Calon Profile</h1>
-      <div class="userProfileBox">
-        <div  class="userData">
-          <img :src="getDetail.image" >
-          <div class="userInformation">
-            <div class="userName">
-              <h1>{{getDetail.username}}</h1>
+    <div class="d-flex flex-column bd-highlight" style="min-height: 100vh;">
+      <div class="px-5 mt-5 mb-2 bd-highlight ms-5">
+        <div class="container-fluid">
+          <div class="row rounded rounded-3 shadow" style="border: 0.1rem solid #E57373;">
+            <div class="col-3">
+              <div class="d-flex justify-content-center align-items-center" style="min-height: 50vh;">
+                <img
+                  :src="getDetail.image"
+                  class="card-img-top img-costum rounded"
+                  alt="Gambar Calon Kepala Daerah"
+                />
+              </div>
             </div>
-            <div class="BakalCalon">
-              <label for="Bakal Calon"> Bakal Calon :</label>
-              <p>{{getDetail.calon}}</p>
+            <div class="col-5">
+              <div class="card-body d-flex flex-column pt-5 mt-2">
+                <p class="card-title p-costum m-0 h4 mb-1">{{getDetail.username}}</p>
+                <p class="card-text p-costum m-0 h5 mb-2">{{getDetail.calon}}</p>
+                <p class="card-text p-costum m-0 h5">{{getDetail.partai}}</p>
+              </div>
             </div>
-            <div class="userVisi">
-              <label for="visi"> visi :</label>
-              <p>{{getDetail.visi}}</p>
+            <div class="col-4">
+              <div class="card-body d-flex flex-column pt-5 mt-2">
+                <p class="card-title p-costum h5 m-0">Tempat, Tanggal Lahir</p>
+                <p class="card-text p-costum m-0 mb-2">{{getDetail.tempat_lahir}} {{getDetail.tanggal_lahir}}</p>
+                <p class="card-title p-costum h5 m-0">Pendidikan</p>
+                <p class="card-text p-costum m-0 mb-2">{{getDetail.pendidikan}}</p>
+                <p class="card-title p-costum h5 m-0">Pekerjaan</p>
+                <p class="card-text p-costum m-0 mb-2">{{getDetail.pekerjaan}}</p>
+              </div>
             </div>
-            <div class="userMisi">
-              <label for="misi"> misi :</label>
-              <p>{{getDetail.misi}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="px-5 bd-highlight ms-5 my-2">
+        <div class="container-fluid">
+          <div class="row rounded rounded-3 shadow" style="min-height: 30vh; border: 0.1rem solid #E57373;">
+            <div class="col-6">
+              <div class="card-body d-flex flex-column">
+                <p class="card-title p-costum m-0 h5 mb-1">Visi</p>
+                <p class="card-text p-costum m-0 mb-2">{{getDetail.visi}}</p>
+              </div>
             </div>
-            <div class="partai">
-              <label for="partai"> partai :</label>
-              <p>{{getDetail.partai}}</p>
-            </div>
-            <div class="pendidikan">
-              <label for="pendidikan"> pendidikan :</label>
-              <p>{{getDetail.pendidikan}}</p>
-            </div>
-            <div class="pekerjaan">
-              <label for="pekerjaan"> pekerjaan :</label>
-              <p>{{getDetail.pekerjaan}}</p>
+            <div class="col-6">
+              <div class="card-body d-flex flex-column">
+                <p class="card-title p-costum m-0 h5 mb-1">Misi</p>
+                <p class="card-text p-costum m-0 mb-2">{{getDetail.misi}}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -59,8 +74,8 @@ export default {
 </script>
 
 <style>
-  @import '../assets/styles/ProfileUser.css';
-  .profileUser {
-    margin-bottom: -50%;
+  @import '../assets/styles/newCss.css';
+  .detail {
+    text-align: justify;
   }
 </style>
