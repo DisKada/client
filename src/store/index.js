@@ -7,6 +7,16 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    msg: [],
+    roomName: '',
+    socket: null,
+    isCreator: false,
+    otherPlayers: {},
+    myKey: '',
+    room: '',
+    rooms: [],
+    myName: '',
+    errorMsg: '',
     profile: {
       id: 0,
       username: '',
@@ -47,6 +57,36 @@ export default new Vuex.Store({
     isLoading: true
   },
   mutations: {
+    resetState (state, payload) {
+      state.rooms = []
+      state.room = ''
+      state.isCreator = false
+      state.myKey = ''
+      state.otherPlayers = {}
+    },
+    createRooms (state, payload) {
+      state.rooms.push(payload)
+    },
+    showError (state, payload) {
+      state.errorMsg = payload
+    },
+    setOtherPlayers (state, payload) {
+      delete payload[state.myKey]
+      console.log(payload)
+      state.otherPlayers = payload
+    },
+    setRoom (state, payload) {
+      state.room = payload
+    },
+    setMyKey (state, payload) {
+      state.myKey = payload
+    },
+    setRooms (state, payload) {
+      state.rooms = payload
+    },
+    setMyName (state, payload) {
+      state.myName = payload
+    },
     fetchProfile (state, payload) {
       // console.log(payload, '<<<<dr mutation')
       state.profile.id = payload.id
@@ -91,9 +131,52 @@ export default new Vuex.Store({
     },
     uploadImg (state, payload) {
       state.getEdit.image = payload
+    },
+    setMsg (state, payload) {
+      state.msg.push(payload)
+    },
+    roomName (state, payload) {
+      state.roomName = payload
+    },
+    clearMsg (state, payload) {
+      state.msg = []
     }
   },
   actions: {
+    SOCKET_msgServer (context, payload) {
+      // console.log(payload, '<<<<< dr server socket')
+      context.commit('setMsg', payload)
+    },
+    SOCKET_getRooms (context, payload) {
+      context.commit('setRooms', payload)
+      // console.log(payload, '<<<<---')
+    },
+    SOCKET_roomCreated (context, payload) {
+      context.commit('createRooms', payload)
+      context.commit('roomName', payload.name)
+      // console.log(payload, 'nambah room<<<<---')
+    },
+    SOCKET_showError (context, payload) {
+      context.commit('showError', payload)
+      // console.log(payload, 'nampilin error <<<<---')
+    },
+    SOCKET_getIntoRoom (context, payload) {
+      // console.log(payload, 'ini dari emit server')
+      payload.isCreator && context.commit('setIsCreator', true)
+      context.commit('setMyKey', payload.palyerKey)
+      context.commit('setRoom', payload.name)
+      context.commit('setOtherPlayers', payload.players)
+      router.push(`/room/${payload.name}`)
+      // console.log(payload, 'masuk ke room<<<<---')
+    },
+    SOCKET_updateClientRoom (context, payload) {
+      context.commit('setRooms', payload)
+      // console.log(payload, '<<<<--- yang di update')
+    },
+    SOCKET_endRoom () {
+      // console.log('ini dari server endroom')
+      router.push('/rooms')
+    },
     login (context, payload) {
       // console.log(payload, '<<<<')
       axios
@@ -103,6 +186,7 @@ export default new Vuex.Store({
           localStorage.setItem('access_token', response.data.access_token)
           localStorage.setItem('username', response.data.username)
           localStorage.setItem('userId', response.data.id)
+          context.commit('setMyName', response.data.username)
           router.push('/')
         })
         .catch(err => {

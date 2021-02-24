@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     toLogin () {
-      console.log('masuk sini')
+      // console.log('masuk sini')
       this.$store.dispatch('register', this.userRegist)
     },
     toHome () {

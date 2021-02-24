@@ -1,12 +1,12 @@
 <template>
   <div class="chatBubble">
-      <p><b>Nama:</b> om botak mau chat</p>
+      <p><b>{{message.username}}:</b> {{message.text}}</p>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: ['message']
 }
 </script>
 
