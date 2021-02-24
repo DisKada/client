@@ -1,21 +1,60 @@
 <template>
-  <div class="profileUser">
+  <div>
     <Navbar/>
-    <div class="userProfileBoard col-12">
-      <h1>User Profile</h1>
-      <div class="userProfileBox">
-        <div  class="userData">
-          <img :src="profile.image" >
-          <div class="userInformation">
-            <div class="userName">
-              <h1>{{profile.username}}</h1>
-            </div>
-            <div class="userEmail">
-              <label for="email"> email :</label>
-              <p>{{profile.email}}</p>
-            </div>
-            <button @click="toEditUser(profile.id)">edit</button>
+    <div class="container-fluid">
+      <div class="row" style="min-height: 50vh">
+        <div class="col-4 d-flex flex-column align-items-center justify-content-center rounded-3">
+          <img
+            :src="profile.image"
+            class="img-fluid shadow rounded-3 ms-5"
+            alt="User Pict"
+            style="background-color: #CFD8DC; border-style: solid; max-height: 80vh; min-height: 50vh;"
+          />
+        </div>
+        <div class="col-8 d-flex flex-column align-items-center justify-content-evenly">
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Nama</h5>
+            <p class="m-1 p-costum">{{profile.username}}</p>
           </div>
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Daerah Pencalonan</h5>
+            <p class="m-1 p-costum">{{profile.calon}}</p>
+          </div>
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Partai Pengusung</h5>
+            <p class="m-1 p-costum">{{profile.partai}}</p>
+          </div>
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Tempat, Tanggal Lahir</h5>
+            <p class="m-1 p-costum">{{profile.tempat_lahir}}, {{profile.tanggal_lahir}}</p>
+          </div>
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Pendidikan</h5>
+            <p class="m-1 p-costum">{{profile.pendidikan}}</p>
+          </div>
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Pekerjaan</h5>
+            <p class="m-1 p-costum">{{profile.pekerjaan}}</p>
+          </div>
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Visi</h5>
+            <p class="m-1 p-costum">{{profile.visi}}</p>
+          </div>
+          <div class="container-lg mb-3 border-bottom">
+            <h5 class="m-1 text-muted heading">Misi</h5>
+            <p class="m-1 p-costum">{{profile.misi}}</p>
+          </div>
+            <div class="container-lg mb-3">
+              <div class="d-grid gap-2 d-md-block">
+                <button
+                  type="button"
+                  class="btn btn-secondary ms-1 p-font"
+                  @click="toEditUser(profile.id)"
+                >
+                  Update
+                </button>
+              </div>
+            </div>
         </div>
       </div>
     </div>
@@ -45,9 +84,9 @@ export default {
 }
 </script>
 
-<style>
-  @import '../assets/styles/ProfileUser.css';
-  .profileUser {
+<style scopped>
+  @import '../assets/styles/newCss.css';
+  /* .profileUser {
     margin-bottom: -50%;
-  }
+  } */
 </style>
