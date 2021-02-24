@@ -1,15 +1,71 @@
 <template>
   <div>
-        <Navbar/>
-      <div class="dashboardRoom">
-          <div class="upperRoom" style="display: flex; flex-direction: row;">
-              <div class="videoBox">
-                 <div id="video-grid"></div>
+    <div class="main">
+        <div class="main__left">
+              <h2>{{(Object.keys(otherPlayers)[0].toString().split('-')[1])}}</h2>
+          <div class="main__videos">
+              <div id="video-grid">
               </div>
           </div>
-          <div class="chatBox">
-              <BubbleChat v-for="(message, i) in msg" :key="i" :message="message"/>
+          <div class="main__controls">
+              <div class="main__controls__block">
+                <div  v-if="profile.status === 'verified'" @click="muteUnmute" class="main__controls__button main__mute_button">
+                  <div v-if = "muted === true">
+                    <i class="fas fa-microphone"></i>
+                    <span>Mute</span>                  
+                  </div>
+                  <div v-if = "muted === false">
+                    <i class="fas fa-microphone-slash" style="color:red"></i>
+                    <span>Unmute</span>                  
+                  </div>
+                  
+                </div>
+                <div  v-if="profile.status === 'verified'" @click="playStop" class="main__controls__button main__video_button" >
+                  <div v-if = "videoShare === true">
+                    <i class="fas fa-video"></i>
+                    <span>Stop Video</span>
+                  </div >
+                  <div v-if = "videoShare === false">
+                    <i class="stop fas fa-video-slash"></i>                    
+                    <span>Play Video</span>
+                  </div >
+                </div>
+              </div>        
+                <div class="main__controls__button">
+                    <i class="fas fa-user-friends"></i>
+                    <span></span>
+                </div>
+              <div class="main__controls__block">
+                <div class="main__controls__button">
+                    <button type="submit" @click="leaveRoom" v-if="profile.status !== 'verified'"> leave room </button>
+                    <button type="submit" @click="endRoom(room)" v-if="profile.status === 'verified'"> end room </button>
+                </div>
+              </div>
           </div>
+        </div>
+        <div class="main__right">
+          <div class="main__header">
+              <h6>Chat</h6>
+          </div>
+          <div class="main__chat_window">
+            <div class="chatBox">
+                <BubbleChat v-for="(message, i) in msg" :key="i" :message="message"/>
+            </div>
+            <!--
+              <ul class="messages">  
+              </ul> -->
+          </div>
+          <div class="main__message_container">
+          <div class="input" v-if="profile.status !== 'verified'">
+                  <input type="text" v-model="text">
+              </div>
+              <button @click.prevent="sendMsg" v-if="profile.status !== 'verified'">send</button>
+          <!--<input id="chat_message" type="text" placeholder="Type message here..."> -->
+          </div>
+        </div>
+    </div>
+    <!--
+      <div class="dashboardRoom">
           <div class="inputChat">
               <div class="input" v-if="profile.status !== 'verified'">
                   <input type="text" v-model="text">
@@ -19,6 +75,7 @@
           <button type="submit" @click.prevent="endRoom(room)" v-if="profile.status === 'verified'"> end room </button>
           </div>
       </div>
+      -->
   </div>
 </template>
 
@@ -49,11 +106,15 @@ export default {
     },
     profile () {
       return this.$store.state.profile
-    },userId () {
+    },
+    userId () {
       return this.$store.state.myId
     },
     connected () {
       return this.$store.state.isConnected
+    },
+    disconnected () {
+      return this.$store.state.isDisconnected
     }
   },
   name: 'Room',
@@ -61,7 +122,10 @@ export default {
     return {
       name: localStorage.username,
       username: localStorage.getItem('username'),
-      text: ''
+      text: '',
+      muted: true,
+      streamVid: null,
+      videoShare: true
     }
   },
   components: {
@@ -83,47 +147,76 @@ export default {
         roomName: this.room,
         playerKey: this.myKey
       })
+      // this.$socket.emit('disconnected')
       this.$router.push('/rooms')
       this.$store.commit('clearMsg')
+      window.location.reload()
     },
     endRoom (room) {
+      // this.$socket.emit('disconnected')
       this.$socket.emit('end-room', room)
       this.$store.dispatch('SOCKET_endRoom')
       this.$store.commit('clearMsg')
+      window.location.reload()
+    },
+    muteUnmute () {
+      console.log('masuk mute')
+      const enabled = this.streamVid.getAudioTracks()[0].enabled;
+      console.log(enabled,'ini enable')
+      if (enabled) {
+        this.streamVid.getAudioTracks()[0].enabled = false;
+        this.muted = false
+      } else {
+        this.muted = true
+        this.streamVid.getAudioTracks()[0].enabled = true;
+      }
+    },
+    playStop () {
+      let enabled = this.streamVid.getVideoTracks()[0].enabled;
+      if (enabled) {
+        this.streamVid.getVideoTracks()[0].enabled = false;
+        this.videoShare = false
+      } else {
+        this.videoShare = true
+        this.streamVid.getVideoTracks()[0].enabled = true;
+      }
     }
   },
   mounted () {
-    console.log(this.peerId,'<<<< ini peer id diawal')
-    console.log(this.userId,'<<<<<< ini user id dari connect ')
-    console.log(this.connected, '<<<<<< conenct masukke room')
+    // console.log(this.peerId,'<<<< ini peer id diawal')
+    // console.log(this.userId,'<<<<<< ini user id dari connect ')
+    // console.log(this.connected, '<<<<<< conenct masukke room')
+    // console.log(myPeer,'<<<ini peer')
     const videoGrid = document.getElementById('video-grid')
     const myPeer = this.peer
-    console.log(myPeer,'<<<ini peer')
     let myVideoStream
     const myVideo = document.createElement('video')
     myVideo.muted = true
     const peers = {}
+    if ( user === 'verifed') {
     navigator.mediaDevices.getUserMedia({
       video: true,
-      // audio: true
+      audio: true
     }).then(stream => {
       myVideoStream = stream
+      this.streamVid = stream
       addVideoStream(myVideo, stream)
       myPeer.on('call', call => {
-      call.answer(stream)
-      const video = document.createElement('video')
-      call.on('stream', userVideoStream => {
-        addVideoStream(video, userVideoStream)
+        call.answer(stream)
+        const video = document.createElement('video')
+        call.on('stream', userVideoStream => {
+          addVideoStream(video, userVideoStream)
+        })
       })
+      if(this.connected === true) {
+        connectToNewUser(this.userId,stream)
+      }
     })
-    if(this.connected === true) {
-      connectToNewUser(this.userId,stream)
     }
-    })
 
-    // if (this.connected === false) {
-    //   if (peers[this.userId]) peers[this.userId].close()
-    // }
+    if (this.disconnected === true) {
+      if (peers[this.userId]) peers[this.userId].close()
+    }
 
     function connectToNewUser(userId, stream) {
       const call = myPeer.call(userId, stream)
@@ -144,10 +237,14 @@ export default {
       })
       videoGrid.append(video)
     }
+    const scrollToBottom = () => {
+      var d = $('.main__chat_window');
+      d.scrollTop(d.prop("scrollHeight"));
+    }
   }
 }
 </script>
 
 <style>
-  @import '../assets/styles/Room.css';
+  @import '../assets/styles/styleRoom.css';
 </style>

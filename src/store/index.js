@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router/index'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -10,7 +11,7 @@ export default new Vuex.Store({
     msg: [],
     roomName: '',
     isCreator: false,
-    otherPlayers: {},
+    otherPlayers: null,
     myKey: '',
     room: '',
     rooms: [],
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     errorMsg: '',
     myId: '',
     isConnected: null,
+    isDisconnected: null,
     profile: {
       id: 0,
       username: '',
@@ -73,7 +75,7 @@ export default new Vuex.Store({
     },
     setOtherPlayers (state, payload) {
       delete payload[state.myKey]
-      console.log(payload)
+      console.log(payload,'<<<<<<<<<<<<<< players baru')
       state.otherPlayers = payload
     },
     setRoom (state, payload) {
@@ -96,6 +98,9 @@ export default new Vuex.Store({
     },
     setConnected (state, payload) {
       state.isConnected = payload
+    },
+    setDisconnected (state, payload) {
+      state.isDisconnected = payload
     },
     fetchProfile (state, payload) {
       // console.log(payload, '<<<<dr mutation')
@@ -195,7 +200,7 @@ export default new Vuex.Store({
     SOCKET_userDisconnected(context, payload) {
       console.log(payload, '<<<<--- yang di dari dosconneted')
       context.commit('setMyId', payload)
-      context.commit('setConnected',false)
+      context.commit('setDisconnected',true)
     },
     login (context, payload) {
       // console.log(payload, '<<<<')
@@ -217,7 +222,7 @@ export default new Vuex.Store({
       axios
         .post('/users/register', payload)
         .then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           // context.commit('errHandling', '')
           // router.push('/login&register')
         })
@@ -232,7 +237,7 @@ export default new Vuex.Store({
       axios
         .get(`/users/${id}`, { headers })
         .then(response => {
-          console.log(response.data, '<<<<<')
+          // console.log(response.data, '<<<<<')
           context.commit('fetchProfile', response.data)
         })
         .catch(err => {
@@ -244,7 +249,7 @@ export default new Vuex.Store({
       axios
         .get('/users', { headers })
         .then(response => {
-          console.log(response.data, '<<<<<')
+          // console.log(response.data, '<<<<<')
           context.commit('fetchAllVerified', response.data)
         })
         .catch(err => {
@@ -270,11 +275,11 @@ export default new Vuex.Store({
     edit (context, payload) {
       const headers = { access_token: localStorage.access_token }
       const obj = context.state.getEdit
-      console.log(obj, '<<<<<edit action')
+      // console.log(obj, '<<<<<edit action')
       axios
         .put(`/users/${payload}`, obj, { headers })
         .then(response => {
-          console.log(response.data, '<<<< dr server')
+          // console.log(response.data, '<<<< dr server')
           router.push(`/profile/${payload}`)
         })
         .catch(err => {
