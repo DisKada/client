@@ -42,7 +42,9 @@ export default new Vuex.Store({
       pendidikan: '',
       calon: '',
       image: '',
-      pekerjaan: ''
+      pekerjaan: '',
+      tanggal_lahir: '',
+      tempat_lahir: ''
     },
     getDetail: {
       id: 0,
@@ -123,6 +125,8 @@ export default new Vuex.Store({
       state.getEdit.pendidikan = payload.pendidikan
       state.getEdit.calon = payload.calon
       state.getEdit.pekerjaan = payload.pekerjaan
+      state.getEdit.tanggal_lahir = payload.tanggal_lahir
+      state.getEdit.tempat_lahir = payload.tempat_lahir
     },
     getDetail (state, payload) {
       state.getDetail.id = payload.id
