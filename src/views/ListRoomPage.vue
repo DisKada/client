@@ -88,8 +88,11 @@ export default {
       }
       const payload = {
         name: formValues[0],
-        creator: this.myName
+        creator: this.myName,
+        max: Number(formValues[1])
       }
+      console.log(Number(formValues[1]), '<<<<< dr form')
+      // this.$store.commit('maxPlayer', Number(formValues[1]))
       this.$socket.emit('create-room', payload)
     }
   },

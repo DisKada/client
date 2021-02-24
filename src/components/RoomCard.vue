@@ -6,18 +6,12 @@
             <div class="articles__content articles__content--lhs">
                 <h2 class="articles__title">{{room.name}}</h2>
                 <div class="articles__footer">
-                <p> <b>Peserta: 10</b> </p>
-                <time>1 Maret 2021</time>
+                <p> <b>Peserta: {{counter}}</b> </p>
                 </div>
+                <div v-if="counter < maxPlayer">
                 <button type="submit" @click="joinRoom(room.name)">join room</button>
-            </div>
-            <!-- <div class="articles__content articles__content--rhs" aria-hidden="true">
-                <h2 class="articles__title">Nama Room</h2>
-                <div class="articles__footer">
-                <p><b>Peserta: 10</b></p>
-                <time>1 Maret 2021</time>
                 </div>
-            </div></a> -->
+            </div>
         </li>
     </ol>
   </div>
@@ -37,12 +31,18 @@ export default {
         roomName: name
       }
       this.$socket.emit('join-room', payload)
+      this.$store.commit('clearMsg')
     }
   },
   computed: {
     ...mapState(['myName']),
-    players () {
-      return Object.keys(this.room.players).map(key => key.split('-')[1])
+    maxPlayer () {
+      const b = this.$store.state.maxPlayer
+      console.log(b, '<<<<<maxplayer')
+      return b
+    },
+    counter () {
+      return this.$store.state.counter
     }
   }
 }

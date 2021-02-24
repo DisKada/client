@@ -54,9 +54,15 @@ export default new Vuex.Store({
       pekerjaan: ''
     },
     profiles: [],
-    isLoading: true
+    isLoading: true,
+    maxPlayer: 0,
+    counter: 0
   },
   mutations: {
+    maxPlayer (state, payload) {
+      console.log(payload, 'dr mutation')
+      state.maxPlayer = payload
+    },
     resetState (state, payload) {
       state.rooms = []
       state.room = ''
@@ -72,7 +78,7 @@ export default new Vuex.Store({
     },
     setOtherPlayers (state, payload) {
       delete payload[state.myKey]
-      console.log(payload)
+      console.log(payload, 'uwawwww')
       state.otherPlayers = payload
     },
     setRoom (state, payload) {
@@ -140,9 +146,18 @@ export default new Vuex.Store({
     },
     clearMsg (state, payload) {
       state.msg = []
+    },
+    counter (state, payload) {
+      state.counter = payload
     }
   },
   actions: {
+    SOCKET_counter (context, payload) {
+      context.commit('counter', payload)
+    },
+    SOCKET_maxPlayer (context, payload) {
+      context.commit('maxPlayer', payload)
+    },
     SOCKET_msgServer (context, payload) {
       // console.log(payload, '<<<<< dr server socket')
       context.commit('setMsg', payload)
@@ -152,8 +167,10 @@ export default new Vuex.Store({
       // console.log(payload, '<<<<---')
     },
     SOCKET_roomCreated (context, payload) {
+      // console.log(payload, '<<<<room create')
       context.commit('createRooms', payload)
       context.commit('roomName', payload.name)
+      // context.commit('maxPlayer', payload.max)
       // console.log(payload, 'nambah room<<<<---')
     },
     SOCKET_showError (context, payload) {
@@ -170,6 +187,7 @@ export default new Vuex.Store({
       // console.log(payload, 'masuk ke room<<<<---')
     },
     SOCKET_updateClientRoom (context, payload) {
+      // console.log(payload, '<<<< updated room')
       context.commit('setRooms', payload)
       // console.log(payload, '<<<<--- yang di update')
     },
