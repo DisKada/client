@@ -1,6 +1,7 @@
 <template>
+<div>
+  <Navbar/>
   <div class="edit-profile">
-    <Navbar/>
     <div class="container-fluid ps-5">
       <div class="row" style="min-height: 100vh">
         <div class="col-8 d-flex flex-column align-items-center justify-content-evenly mx-auto my-3" style="border: 0.1rem solid #E57373;">
@@ -143,6 +144,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>

@@ -1,6 +1,7 @@
 <template>
+<div>
+  <Navbar/>
   <div class="detail">
-    <Navbar/>
     <div class="d-flex flex-column bd-highlight" style="min-height: 100vh;">
       <div class="px-5 mt-5 mb-2 bd-highlight ms-5">
         <div class="container-fluid">
@@ -54,6 +55,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>

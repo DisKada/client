@@ -5,13 +5,13 @@
 </template>
 
 <style>
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
     width: 0.8rem;
 }
 
 body::-webkit-scrollbar-thumb {
-    background: #e40017
-}
+    background: #90A4AE
+} */
 
 body {
   margin: 0;
