@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="user-profile">
     <Navbar/>
     <div class="container-fluid">
       <div class="row" style="min-height: 50vh">
@@ -86,6 +86,9 @@ export default {
 
 <style scopped>
   @import '../assets/styles/newCss.css';
+  .user-profile {
+    text-align: justify;
+  }
   /* .profileUser {
     margin-bottom: -50%;
   } */

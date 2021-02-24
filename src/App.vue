@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div id="app">
     <router-view/>
   </div>
 </template>
 
 <style>
-/* body::-webkit-scrollbar {
+body::-webkit-scrollbar {
     width: 0.8rem;
 }
 
@@ -36,5 +36,5 @@ body {
 
 #nav a.router-link-exact-active {
   color: #42b983;
-} */
+}
 </style>
