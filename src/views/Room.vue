@@ -2,43 +2,43 @@
   <div>
     <div class="main">
         <div class="main__left">
-              <h2>{{(Object.keys(otherPlayers)[0].toString().split('-')[1])}}</h2>
-          <div class="main__videos">
+          <div class="main__videos d-flex flex-column">
+              <h4 v-if="isCreator">{{(Object.keys(otherPlayers)[0].toString().split('-')[1])}}</h4>
+              <p>{{(Object.keys(otherPlayers).length)}}</p>
               <div id="video-grid">
               </div>
           </div>
           <div class="main__controls">
               <div class="main__controls__block">
                 <div  v-if="profile.status === 'verified'" @click="muteUnmute" class="main__controls__button main__mute_button">
-                  <div v-if = "muted === true">
+                  <div v-if = "muted === true" class="d-flex flex-column">
                     <i class="fas fa-microphone"></i>
                     <span>Mute</span>                  
                   </div>
-                  <div v-if = "muted === false">
+                  <div v-if = "muted === false" class="d-flex flex-column">
                     <i class="fas fa-microphone-slash" style="color:red"></i>
                     <span>Unmute</span>                  
                   </div>
                   
                 </div>
                 <div  v-if="profile.status === 'verified'" @click="playStop" class="main__controls__button main__video_button" >
-                  <div v-if = "videoShare === true">
+                  <div v-if = "videoShare === true" class="d-flex flex-column">
                     <i class="fas fa-video"></i>
                     <span>Stop Video</span>
                   </div >
-                  <div v-if = "videoShare === false">
+                  <div v-if = "videoShare === false" class="d-flex flex-column">
                     <i class="stop fas fa-video-slash"></i>                    
                     <span>Play Video</span>
                   </div >
                 </div>
               </div>        
                 <div class="main__controls__button">
-                    <i class="fas fa-user-friends"></i>
-                    <span></span>
+                    <p class="fw-bold">Pembicara : {{(Object.keys(otherPlayers)[0].toString().split('-')[1])}}</p>
                 </div>
               <div class="main__controls__block">
                 <div class="main__controls__button">
-                    <button type="submit" @click="leaveRoom" v-if="profile.status !== 'verified'"> leave room </button>
-                    <button type="submit" @click="endRoom(room)" v-if="profile.status === 'verified'"> end room </button>
+                    <button type="submit" @click="leaveRoom" v-if="!isCreator"> leave room </button>
+                    <button type="submit" @click="endRoom(room)" v-if="isCreator"> end room </button>
                 </div>
               </div>
           </div>
@@ -51,38 +51,24 @@
             <div class="chatBox">
                 <BubbleChat v-for="(message, i) in msg" :key="i" :message="message"/>
             </div>
-            <!--
-              <ul class="messages">  
-              </ul> -->
           </div>
           <div class="main__message_container">
-          <div class="input" v-if="profile.status !== 'verified'">
-                  <input type="text" v-model="text">
+            <input type="text" v-model="text" class="input border-bottom">
+            <div class="main__controls__button">
+              <button @click.prevent="sendMsg" class="btn btn-success btn-sm" >send</button>
+              <div class="input" v-if="profile.status !== 'verified'">
               </div>
-              <button @click.prevent="sendMsg" v-if="profile.status !== 'verified'">send</button>
-          <!--<input id="chat_message" type="text" placeholder="Type message here..."> -->
+            </div>
           </div>
         </div>
     </div>
-    <!--
-      <div class="dashboardRoom">
-          <div class="inputChat">
-              <div class="input" v-if="profile.status !== 'verified'">
-                  <input type="text" v-model="text">
-              </div>
-              <button @click.prevent="sendMsg" v-if="profile.status !== 'verified'">send</button>
-          <button type="submit" @click.prevent="leaveRoom" v-if="profile.status !== 'verified'"> leave room </button>
-          <button type="submit" @click.prevent="endRoom(room)" v-if="profile.status === 'verified'"> end room </button>
-          </div>
-      </div>
-      -->
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar'
 import BubbleChat from '../components/bubbleChat'
-import { mapState } from 'vuex'
+import { mapState,mapMutations } from 'vuex'
 
 export default {
   props:['peer','peerId'],
@@ -94,6 +80,7 @@ export default {
     }
   },
   computed: {
+    ...mapMutations(['setButtonJoin']),
     ...mapState([
       'isCreator',
       'myName',
@@ -137,9 +124,7 @@ export default {
   },
   methods: {
     sendMsg () {
-      // console.log(this.message, '<<<<< room name')
       this.$socket.emit('newMessage', { message: this.text, username: this.username, room: this.$store.state.roomName })
-      // this.$store.commit('setMsg', this.message)
       this.text = ''
     },
     leaveRoom () {
@@ -193,7 +178,6 @@ export default {
     const myVideo = document.createElement('video')
     myVideo.muted = true
     const peers = {}
-    if ( user === 'verifed') {
     navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true
@@ -212,7 +196,6 @@ export default {
         connectToNewUser(this.userId,stream)
       }
     })
-    }
 
     if (this.disconnected === true) {
       if (peers[this.userId]) peers[this.userId].close()

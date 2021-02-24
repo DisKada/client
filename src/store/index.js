@@ -11,7 +11,7 @@ export default new Vuex.Store({
     msg: [],
     roomName: '',
     isCreator: false,
-    otherPlayers: null,
+    otherPlayers: {},
     myKey: '',
     room: '',
     rooms: [],
@@ -31,7 +31,9 @@ export default new Vuex.Store({
       pendidikan: '',
       calon: '',
       image: '',
-      pekerjaan: ''
+      pekerjaan: '',
+      tempat_lahir: '',
+      tanggal_lahir: ''
     },
     getEdit: {
       id: 0,
@@ -43,7 +45,9 @@ export default new Vuex.Store({
       pendidikan: '',
       calon: '',
       image: '',
-      pekerjaan: ''
+      pekerjaan: '',
+      tanggal_lahir: '',
+      tempat_lahir: ''
     },
     getDetail: {
       id: 0,
@@ -54,12 +58,19 @@ export default new Vuex.Store({
       pendidikan: '',
       calon: '',
       image: '',
-      pekerjaan: ''
+      pekerjaan: '',
+      tanggal_lahir: '',
+      tempat_lahir: ''
     },
     profiles: [],
-    isLoading: true
+    maxPlayer: 0,
+    counter: 0
   },
   mutations: {
+    maxPlayer (state, payload) {
+      console.log(payload, 'dr mutation')
+      state.maxPlayer = payload
+    },
     resetState (state, payload) {
       state.rooms = []
       state.room = ''
@@ -119,9 +130,6 @@ export default new Vuex.Store({
     fetchAllVerified (state, payload) {
       state.profiles = payload
     },
-    isLoadingHandler (state, payload) {
-      state.isLoading = payload
-    },
     getEdit (state, payload) {
       state.getEdit.id = payload.id
       state.getEdit.username = payload.username
@@ -132,6 +140,8 @@ export default new Vuex.Store({
       state.getEdit.pendidikan = payload.pendidikan
       state.getEdit.calon = payload.calon
       state.getEdit.pekerjaan = payload.pekerjaan
+      state.getEdit.tanggal_lahir = payload.tanggal_lahir
+      state.getEdit.tempat_lahir = payload.tempat_lahir
     },
     getDetail (state, payload) {
       state.getDetail.id = payload.id
@@ -155,9 +165,18 @@ export default new Vuex.Store({
     },
     clearMsg (state, payload) {
       state.msg = []
+    },
+    counter (state, payload) {
+      state.counter = payload
     }
   },
   actions: {
+    SOCKET_counter (context, payload) {
+      context.commit('counter', payload)
+    },
+    SOCKET_maxPlayer (context, payload) {
+      context.commit('maxPlayer', payload)
+    },
     SOCKET_msgServer (context, payload) {
       // console.log(payload, '<<<<< dr server socket')
       context.commit('setMsg', payload)
@@ -207,6 +226,11 @@ export default new Vuex.Store({
       axios
         .post('/users/login', payload)
         .then(response => {
+          Swal.fire({
+            icon: 'success',
+            title: `Hi ${payload.email} !`,
+            text: 'Welcome to diskada '
+          })
           // console.log('masukk sinii')
           localStorage.setItem('access_token', response.data.access_token)
           localStorage.setItem('username', response.data.username)
@@ -215,19 +239,34 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.message
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.message
+          })
         })
     },
     register (context, payload) {
       axios
         .post('/users/register', payload)
         .then(response => {
-          // console.log(response.data)
-          // context.commit('errHandling', '')
-          // router.push('/login&register')
+          Swal.fire({
+            icon: 'success',
+            title: 'Your Email Success To Register',
+            text: `Please Remember Your Email is : ${response.data.email}`
+          })
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.message
+          })
         })
     },
     fetchProfile (context, payload) {
@@ -257,8 +296,25 @@ export default new Vuex.Store({
         })
     },
     logout (context, payload) {
-      localStorage.clear()
-      router.push('/login&register')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You can back any time to visit Us',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Yes, i'm leaving~"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.clear()
+          router.push('/login&register')
+          Swal.fire({
+            icon: 'success',
+            title: 'Good Bye',
+            text: 'Thank you for your visit, have a nice day'
+          })
+        }
+      })
     },
     getEdit (context, payload) {
       const headers = { access_token: localStorage.access_token }
@@ -280,10 +336,18 @@ export default new Vuex.Store({
         .put(`/users/${payload}`, obj, { headers })
         .then(response => {
           // console.log(response.data, '<<<< dr server')
+          Swal.fire({
+            icon: 'success',
+            text: `Profile edited`
+          })
           router.push(`/profile/${payload}`)
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something got wrong'
+          })
         })
     },
     getDetail (context, payload) {

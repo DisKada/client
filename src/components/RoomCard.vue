@@ -5,19 +5,23 @@
           <div class="articles__link">
             <div class="articles__content articles__content--lhs">
                 <h2 class="articles__title">{{room.name.split('-').slice(0,1).join()}}</h2>
-                <div class="articles__footer">
-                <p> <b>Peserta: 10</b> </p>
-                <time>1 Maret 2021</time>
-                </div>
-                <button type="submit" @click="joinRoom">join room</button>
-            </div>
+                <div class="articles__footer d-flex flex-column">
+                  <p ><b>max attending 10</b></p>
+                  <div v-if="counter <= 10">
+                    <button type="submit" @click="joinRoom(room.name)">join room</button>
+                  </div>
+               </div>
+            </div> 
             <div class="articles__content articles__content--rhs" aria-hidden="true">
                 <h2 class="articles__title">{{room.name.split('-').slice(0,1).join()}}</h2>
-                <div class="articles__footer">
-                <p><b>Peserta: 10</b></p>
-                <time>1 Maret 2021</time>
-                </div>
-            </div></div> 
+                <div class="articles__footer d-flex flex-column">
+                  <p ><b>max attending 10</b></p>
+                  <div v-if="counter <= 10">
+                    <button type="submit" @click="joinRoom(room.name)">join room</button>
+                  </div>
+               </div>
+            </div>
+          </div>
         </li>
     </ol>
   </div>
@@ -37,12 +41,18 @@ export default {
         roomName: this.room.name
       }
       this.$socket.emit('join-room', payload,  this.peerId)
+      this.$store.commit('clearMsg')
     }
   },
   computed: {
     ...mapState(['myName']),
-    players () {
-      return Object.keys(this.room.players).map(key => key.split('-')[1])
+    // maxPlayer () {
+    //   const b = this.$store.state.maxPlayer
+    //   console.log(b, '<<<<<maxplayer')
+    //   return b
+    // },
+    counter () {
+      return this.$store.state.counter
     }
   }
 }
@@ -50,4 +60,7 @@ export default {
 
 <style>
     @import '../assets/styles/CardRoom.css';
+    .joinBtn {
+      width: 50px
+    }
 </style>

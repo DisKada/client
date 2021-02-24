@@ -58,6 +58,9 @@ export default {
     toLogin () {
       // console.log('masuk sini')
       this.$store.dispatch('register', this.userRegist)
+      this.userRegist.username = ''
+      this.userRegist.email = ''
+      this.userRegist.password = ''
     },
     toHome () {
       // console.log('masuk sini')

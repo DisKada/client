@@ -1,47 +1,48 @@
 <template>
+<div>
+  <Navbar/>
   <div class="user-profile">
-    <Navbar/>
-    <div class="container-fluid">
-      <div class="row" style="min-height: 50vh">
-        <div class="col-4 d-flex flex-column align-items-center justify-content-center rounded-3">
+    <div class="container-fluid ps-5">
+      <div class="row" style="min-height: 100vh">
+        <div class="col-4 d-flex flex-column align-items-center justify-content-center" style="border: 0.3rem solid #E57373;">
           <img
             :src="profile.image"
-            class="img-fluid shadow rounded-3 ms-5"
+            class="img-fluid ms-5 p-4"
             alt="User Pict"
-            style="background-color: #CFD8DC; border-style: solid; max-height: 80vh; min-height: 50vh;"
+            style="max-height: 80vh; min-height: 50vh;"
           />
         </div>
         <div class="col-8 d-flex flex-column align-items-center justify-content-evenly">
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Nama</h5>
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Name</h5>
             <p class="m-1 p-costum">{{profile.username}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Daerah Pencalonan</h5>
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Area</h5>
             <p class="m-1 p-costum">{{profile.calon}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Partai Pengusung</h5>
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Party</h5>
             <p class="m-1 p-costum">{{profile.partai}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Tempat, Tanggal Lahir</h5>
-            <p class="m-1 p-costum">{{profile.tempat_lahir}}, {{profile.tanggal_lahir}}</p>
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Date of birth</h5>
+            <p class="m-1 p-costum">{{profile.tempat_lahir}} {{profile.tanggal_lahir}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Pendidikan</h5>
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Education</h5>
             <p class="m-1 p-costum">{{profile.pendidikan}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Pekerjaan</h5>
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Profession</h5>
             <p class="m-1 p-costum">{{profile.pekerjaan}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Visi</h5>
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Vision</h5>
             <p class="m-1 p-costum">{{profile.visi}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
-            <h5 class="m-1 text-muted heading">Misi</h5>
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
+            <h5 class="m-1 text-muted heading">Mission</h5>
             <p class="m-1 p-costum">{{profile.misi}}</p>
           </div>
             <div class="container-lg mb-3">
@@ -59,6 +60,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -84,7 +86,7 @@ export default {
 }
 </script>
 
-<style scopped>
+<style scoped>
   @import '../assets/styles/newCss.css';
   .user-profile {
     text-align: justify;

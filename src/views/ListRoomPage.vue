@@ -23,7 +23,6 @@ export default {
   props:['peer','peerId'],
   created () {
     this.$store.commit('resetState')
-    // this.listenOnSocketEvent()
     this.listRoom()
     this.$store.dispatch('fetchProfile')
   },
@@ -32,7 +31,6 @@ export default {
     return {
       roomName: '',
       roomList: [],
-      loading: false,
       palyerName: localStorage.getItem('username')
     }
   },
@@ -43,8 +41,6 @@ export default {
   computed: {
     ...mapState(['myName']),
     rooms () {
-      // console.log(this.$store.state.rooms, 'ini masuk')
-      // this.loading = false
       return this.$store.state.rooms
     },
     showError () {
@@ -52,6 +48,9 @@ export default {
     },
     profile () {
       return this.$store.state.profile
+    },
+    buttonJOin () {
+      return this.$store.state.buttonJoin
     }
   },
   methods: {
@@ -59,21 +58,20 @@ export default {
     listRoom () {
       this.$socket.emit('get-rooms')
       this.setMyName(this.palyerName)
-      this.loading = true
     },
     async createRoom () {
       const { value: formValues } = await Swal.fire({
         title: 'Buat Room',
         html:
           '<label>Nama Room</label>' +
-          '<input id="swal-input1" class="swal2-input">' +
-          '<label>Jumlah Maksimal Peserta</label>' +
-          '<input id="swal-input2" class="swal2-input">',
+          '<input id="swal-input1" class="swal2-input">', 
+          // '<label>Jumlah Maksimal Peserta</label>' +
+          // '<input id="swal-input2" class="swal2-input">',
         focusConfirm: false,
         preConfirm: () => {
           return [
             document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
+            // document.getElementById('swal-input2').value
           ]
         }
       })
@@ -82,7 +80,8 @@ export default {
       }
       const payload = {
         name: formValues[0] + '-' + uuidV4(),
-        creator: this.myName
+        creator: this.myName,
+        // max: Number(formValues[1])
       }
       this.$socket.emit('create-room', payload, this.peerId)
     }

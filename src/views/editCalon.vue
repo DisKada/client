@@ -1,57 +1,156 @@
 <template>
-  <div class="profileUser">
-    <Navbar/>
-    <div class="userProfileBoard col-12">
-      <h1>Edit Calon Profile</h1>
-      <div class="userProfileBox">
-        <div  class="userData">
-          <div class="userInformation">
-            <form>
-                <div class="userName">
-                    <label for="name"> name :</label>
-                    <input type="text" v-model="getEdit.username">
-                </div>
-                <div>
-                  <label>Change image</label>
-                  <input type="file" @change="previewImage" accept="image/*" class="form-control" ref="uploadImage">
-                </div>
-                <!-- <button @click.prevent="onUpload" class="btn btn-success">Upload</button> -->
-                <div v-if="getEdit.status === 'verified'">
-                <div class="userEmail">
-                    <label type="text" for="calon"> Bakal Calon :</label>
-                    <input type="text" v-model="getEdit.calon">
-                </div>
-                <div class="userEmail">
-                    <label type="text" for="partai"> partai :</label>
-                    <input type="text" v-model="getEdit.partai">
-                </div>
-                <div class="userVisi">
-                    <label type="text" for="visi"> visi :</label>
-                    <input type="text" v-model="getEdit.visi">
-                </div>
-                <div class="userMisi">
-                    <label type="text" for="pekerjaan"> pekerjaan :</label>
-                    <input type="text" v-model="getEdit.pekerjaan">
-                </div>
-                <div class="userMisi">
-                    <label type="text" for="pendidikan"> pendidikan :</label>
-                    <input type="text" v-model="getEdit.pendidikan">
-                </div>
-                </div>
-                <button type="submit" @click.prevent="edit(getEdit.id)">edit</button>
-            </form>
+<div>
+  <Navbar/>
+  <div class="edit-profile">
+    <div class="container-fluid ps-5">
+      <div class="row" style="min-height: 100vh">
+        <div class="col-8 d-flex flex-column align-items-center justify-content-evenly mx-auto my-3" style="border: 0.1rem solid #E57373;">
+           <div class="container-lg mt-1 mb-2">
+            <label for="nameId" class="form-label m-0 text-muted heading">
+              Name
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="nameId"
+              name="name"
+              v-model="getEdit.username"
+              required
+            />
           </div>
+           <div class="container-lg mb-2">
+            <label for="imageId" class="form-label m-0 text-muted heading">
+              Image
+            </label>
+            <input
+              type="file"
+              class="form-control"
+              id="imageId"
+              name="image"
+              @change="previewImage"
+              accept="image/*"
+              ref="uploadImage"
+            />
+          </div>
+           <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
+            <label for="partaiId" class="form-label m-0 text-muted heading">
+              Party
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="partaiId"
+              name="partai"
+              v-model="getEdit.partai"
+            />
+          </div>
+          <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
+            <label for="calonId" class="form-label m-0 text-muted heading">
+              Area
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="calonId"
+              name="calon"
+              v-model="getEdit.calon"
+              required
+            />
+          </div>
+          <div class="container-lg mb-2">
+            <label for="tempat_lahirId" class="form-label m-0 text-muted heading">
+              Birth of place
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="tempat_lahirId"
+              name="tempat_lahir"
+              v-model="getEdit.tempat_lahir"
+            />
+          </div>
+          <div class="container-lg mb-2">
+            <label for="tanggal_lahirId" class="form-label m-0 text-muted heading">
+              Birth of date
+            </label>
+            <input
+              type="date"
+              class="form-control"
+              id="tanggal_lahirId"
+              name="tanggal_lahir"
+              v-model="getEdit.tanggal_lahir"
+            />
+          </div>
+          <div class="container-lg mb-2">
+            <label for="pendidikanId" class="form-label m-0 text-muted heading">
+              Education
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="pendidikanId"
+              name="pendidikan"
+              v-model="getEdit.pendidikan"
+            />
+          </div>
+          <div class="container-lg mb-2">
+            <label for="pekerjaanId" class="form-label m-0 text-muted heading">
+              Profession
+            </label>
+            <input
+              type="text"
+              class="form-control"
+              id="pekerjaanId"
+              name="pekerjaan"
+              v-model="getEdit.pekerjaan"
+            />
+          </div>
+          <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
+            <label for="visiId" class="form-label text-muted heading">
+              Vision
+            </label>
+            <textarea
+              class="form-control"
+              id="visiId"
+              rows="5"
+              name="visi"
+              v-model="getEdit.visi"
+            ></textarea>
+          </div>
+          <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
+            <label for="misiId" class="form-label text-muted heading">
+              Mission
+            </label>
+            <textarea
+              class="form-control"
+              id="misiId"
+              rows="5"
+              name="misi"
+              v-model="getEdit.misi"
+            ></textarea>
+          </div>
+            <div class="container-lg mb-3">
+              <div class="d-grid gap-2 mx-auto col-4">
+                <button
+                  type="button"
+                  class="btn btn-secondary p-font"
+                   @click.prevent="edit(getEdit.id)"
+                >
+                  Submit
+                </button>
+              </div>
+            </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar'
 import firebase from 'firebase/app'
 import 'firebase/storage'
-
 export default {
   name: 'EditCalon',
   components: {
@@ -101,11 +200,8 @@ export default {
 </script>
 
 <style>
-  @import '../assets/styles/ProfileUser.css';
-  .profileUser {
-    margin-bottom: -50%;
-  }
-  label {
-    color: black
+  @import '../assets/styles/newCss.css';
+  .edit-profile {
+    text-align: justify;
   }
 </style>

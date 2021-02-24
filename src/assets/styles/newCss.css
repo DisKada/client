@@ -20,3 +20,24 @@
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
 }
+
+@media (min-width: 576px) {
+  .img-costum {
+    height: 13rem;
+    object-fit: cover;
+  }
+}
+
+@media (max-width: 576px) {
+  .img-costum {
+    height: 13rem;
+    object-fit: cover;
+  }
+}
+
+@media (min-width: 2000px) {
+  .img-costum {
+    height: 20rem;
+    object-fit: cover;
+  }
+}
