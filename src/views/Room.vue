@@ -4,7 +4,7 @@
       <div class="dashboardRoom">
           <div class="upperRoom" style="display: flex; flex-direction: row;">
               <div class="videoBox">
-
+                 <div id="video-grid"></div>
               </div>
           </div>
           <div class="chatBox">
@@ -28,6 +28,7 @@ import BubbleChat from '../components/bubbleChat'
 import { mapState } from 'vuex'
 
 export default {
+  props:['peer','peerId'],
   beforeRouteEnter (to, from, next) {
     if (from.name) {
       next()
@@ -48,6 +49,11 @@ export default {
     },
     profile () {
       return this.$store.state.profile
+    },userId () {
+      return this.$store.state.myId
+    },
+    connected () {
+      return this.$store.state.isConnected
     }
   },
   name: 'Room',
@@ -84,6 +90,59 @@ export default {
       this.$socket.emit('end-room', room)
       this.$store.dispatch('SOCKET_endRoom')
       this.$store.commit('clearMsg')
+    }
+  },
+  mounted () {
+    console.log(this.peerId,'<<<< ini peer id diawal')
+    console.log(this.userId,'<<<<<< ini user id dari connect ')
+    console.log(this.connected, '<<<<<< conenct masukke room')
+    const videoGrid = document.getElementById('video-grid')
+    const myPeer = this.peer
+    console.log(myPeer,'<<<ini peer')
+    let myVideoStream
+    const myVideo = document.createElement('video')
+    myVideo.muted = true
+    const peers = {}
+    navigator.mediaDevices.getUserMedia({
+      video: true,
+      // audio: true
+    }).then(stream => {
+      myVideoStream = stream
+      addVideoStream(myVideo, stream)
+      myPeer.on('call', call => {
+      call.answer(stream)
+      const video = document.createElement('video')
+      call.on('stream', userVideoStream => {
+        addVideoStream(video, userVideoStream)
+      })
+    })
+    if(this.connected === true) {
+      connectToNewUser(this.userId,stream)
+    }
+    })
+
+    // if (this.connected === false) {
+    //   if (peers[this.userId]) peers[this.userId].close()
+    // }
+
+    function connectToNewUser(userId, stream) {
+      const call = myPeer.call(userId, stream)
+      const video = document.createElement('video')
+      call.on('stream', userVideoStream => {
+        addVideoStream(video, userVideoStream)
+      })
+      call.on('close', () => {
+        video.remove()
+      })
+
+      peers[userId] = call
+    }
+    function addVideoStream(video, stream) {
+      video.srcObject = stream
+      video.addEventListener('loadedmetadata', () => {
+        video.play()
+      })
+      videoGrid.append(video)
     }
   }
 }

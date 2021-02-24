@@ -9,7 +9,7 @@
                 <p> <b>Peserta: 10</b> </p>
                 <time>1 Maret 2021</time>
                 </div>
-                <button type="submit" @click="joinRoom(room.name)">join room</button>
+                <button type="submit" @click="joinRoom">join room</button>
             </div>
             <!-- <div class="articles__content articles__content--rhs" aria-hidden="true">
                 <h2 class="articles__title">Nama Room</h2>
@@ -28,15 +28,15 @@ import { mapState } from 'vuex'
 
 export default {
   name: 'RoomCard',
-  props: ['room'],
+  props: ['room','peer','peerId'],
   methods: {
-    joinRoom (name) {
+    joinRoom () {
       // console.log(name, 'ini dipencet')
       const payload = {
         playerName: this.myName,
-        roomName: name
+        roomName: this.room.name
       }
-      this.$socket.emit('join-room', payload)
+      this.$socket.emit('join-room', payload,  this.peerId)
     }
   },
   computed: {

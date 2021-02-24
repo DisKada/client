@@ -1,8 +1,31 @@
 <template>
   <div id="app">
-    <router-view/>
+    <router-view :peer="peer" :peerId='peerId'/>
   </div>
 </template>
+
+<script>
+export default {
+  mounted () {
+    this.peer = new Peer(undefined, {
+      path: '/peerjs',
+      host: '/',
+      port: '3000'
+    })
+    this.peer.on('open', id => {
+      console.log(id,'<<<<< dari app')
+      this.peerId = id
+    })
+  },
+  data () {
+    return {
+      peer : null,
+      peerId: null
+    }
+  }
+}
+</script>
+
 
 <style>
 body::-webkit-scrollbar {

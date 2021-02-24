@@ -9,7 +9,6 @@ export default new Vuex.Store({
   state: {
     msg: [],
     roomName: '',
-    socket: null,
     isCreator: false,
     otherPlayers: {},
     myKey: '',
@@ -17,6 +16,8 @@ export default new Vuex.Store({
     rooms: [],
     myName: '',
     errorMsg: '',
+    myId: '',
+    isConnected: null,
     profile: {
       id: 0,
       username: '',
@@ -86,6 +87,15 @@ export default new Vuex.Store({
     },
     setMyName (state, payload) {
       state.myName = payload
+    },
+    setMyId (state, payload) {
+      state.myId = payload
+    },
+    setIsCreator (state, payload) {
+      state.isCreator = payload
+    },
+    setConnected (state, payload) {
+      state.isConnected = payload
     },
     fetchProfile (state, payload) {
       // console.log(payload, '<<<<dr mutation')
@@ -176,6 +186,16 @@ export default new Vuex.Store({
     SOCKET_endRoom () {
       // console.log('ini dari server endroom')
       router.push('/rooms')
+    },
+    SOCKET_userConnected(context, payload) {
+      console.log(payload, '<<<<--- yang di dari conneted')
+      context.commit('setMyId', payload)
+      context.commit('setConnected',true)
+    },
+    SOCKET_userDisconnected(context, payload) {
+      console.log(payload, '<<<<--- yang di dari dosconneted')
+      context.commit('setMyId', payload)
+      context.commit('setConnected',false)
     },
     login (context, payload) {
       // console.log(payload, '<<<<')

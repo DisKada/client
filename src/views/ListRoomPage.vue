@@ -4,7 +4,7 @@
       <h1>List Room</h1>
       <div class="listRoom">
           <ol class="articles">
-          <RoomCard v-for="(room) in rooms" :key="room.id" :room="room"/>
+          <RoomCard v-for="(room) in rooms" :key="room.id" :peer="peer" :peerId='peerId' :room="room" />
           </ol>
           <div class="createRoom" v-if="profile.status === 'verified'">
             <button @click.prevent="createRoom" class="buttonCreateRoom">create room</button>
@@ -18,15 +18,9 @@ import RoomCard from '../components/RoomCard'
 import Navbar from '../components/Navbar'
 import Swal from 'sweetalert2'
 import { mapState, mapMutations } from 'vuex'
-
+import { v4 as uuidV4 } from 'uuid'
 export default {
-  beforeRouteEnter (to, from, next) {
-    if (localStorage.getItem('username')) {
-      next()
-    } else {
-      next(false)
-    }
-  },
+  props:['peer','peerId'],
   created () {
     this.$store.commit('resetState')
     // this.listenOnSocketEvent()
@@ -87,10 +81,10 @@ export default {
         Swal.fire(JSON.stringify(formValues))
       }
       const payload = {
-        name: formValues[0],
+        name: formValues[0] + '-' + uuidV4(),
         creator: this.myName
       }
-      this.$socket.emit('create-room', payload)
+      this.$socket.emit('create-room', payload, this.peerId)
     }
   },
   destoyed () {
