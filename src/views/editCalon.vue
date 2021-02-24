@@ -7,7 +7,7 @@
         <div class="col-8 d-flex flex-column align-items-center justify-content-evenly mx-auto my-3" style="border: 0.1rem solid #E57373;">
            <div class="container-lg mt-1 mb-2">
             <label for="nameId" class="form-label m-0 text-muted heading">
-              Nama
+              Name
             </label>
             <input
               type="text"
@@ -20,7 +20,7 @@
           </div>
            <div class="container-lg mb-2">
             <label for="imageId" class="form-label m-0 text-muted heading">
-              Foto
+              Image
             </label>
             <input
               type="file"
@@ -34,7 +34,7 @@
           </div>
            <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
             <label for="partaiId" class="form-label m-0 text-muted heading">
-              Partai Pengusung
+              Party
             </label>
             <input
               type="text"
@@ -46,7 +46,7 @@
           </div>
           <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
             <label for="calonId" class="form-label m-0 text-muted heading">
-              Daerah Pencalonan
+              Area
             </label>
             <input
               type="text"
@@ -59,7 +59,7 @@
           </div>
           <div class="container-lg mb-2">
             <label for="tempat_lahirId" class="form-label m-0 text-muted heading">
-              Tempat Lahir
+              Birth of place
             </label>
             <input
               type="text"
@@ -71,7 +71,7 @@
           </div>
           <div class="container-lg mb-2">
             <label for="tanggal_lahirId" class="form-label m-0 text-muted heading">
-              Tanggal Lahir
+              Birth of date
             </label>
             <input
               type="date"
@@ -83,7 +83,7 @@
           </div>
           <div class="container-lg mb-2">
             <label for="pendidikanId" class="form-label m-0 text-muted heading">
-              Pendidikan
+              Education
             </label>
             <input
               type="text"
@@ -95,7 +95,7 @@
           </div>
           <div class="container-lg mb-2">
             <label for="pekerjaanId" class="form-label m-0 text-muted heading">
-              Pekerjaan
+              Profession
             </label>
             <input
               type="text"
@@ -107,7 +107,7 @@
           </div>
           <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
             <label for="visiId" class="form-label text-muted heading">
-              Visi
+              Vision
             </label>
             <textarea
               class="form-control"
@@ -119,7 +119,7 @@
           </div>
           <div v-if="getEdit.status === 'verified'" class="container-lg mb-2">
             <label for="misiId" class="form-label text-muted heading">
-              Misi
+              Mission
             </label>
             <textarea
               class="form-control"
