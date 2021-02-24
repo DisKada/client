@@ -14,35 +14,35 @@
         </div>
         <div class="col-8 d-flex flex-column align-items-center justify-content-evenly">
           <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Nama</h5>
+            <h5 class="m-1 text-muted heading">Name</h5>
             <p class="m-1 p-costum">{{profile.username}}</p>
           </div>
           <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Daerah Pencalonan</h5>
+            <h5 class="m-1 text-muted heading">Area</h5>
             <p class="m-1 p-costum">{{profile.calon}}</p>
           </div>
           <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Partai Pengusung</h5>
+            <h5 class="m-1 text-muted heading">Party</h5>
             <p class="m-1 p-costum">{{profile.partai}}</p>
           </div>
           <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Tempat, Tanggal Lahir</h5>
+            <h5 class="m-1 text-muted heading">Date of birth</h5>
             <p class="m-1 p-costum">{{profile.tempat_lahir}} {{profile.tanggal_lahir}}</p>
           </div>
           <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Pendidikan</h5>
+            <h5 class="m-1 text-muted heading">Education</h5>
             <p class="m-1 p-costum">{{profile.pendidikan}}</p>
           </div>
           <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Pekerjaan</h5>
+            <h5 class="m-1 text-muted heading">Profession</h5>
             <p class="m-1 p-costum">{{profile.pekerjaan}}</p>
           </div>
           <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Visi</h5>
+            <h5 class="m-1 text-muted heading">Vision</h5>
             <p class="m-1 p-costum">{{profile.visi}}</p>
           </div>
           <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
-            <h5 class="m-1 text-muted heading">Misi</h5>
+            <h5 class="m-1 text-muted heading">Mission</h5>
             <p class="m-1 p-costum">{{profile.misi}}</p>
           </div>
             <div class="container-lg mb-3">

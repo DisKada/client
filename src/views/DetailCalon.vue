@@ -24,11 +24,11 @@
             </div>
             <div class="col-4">
               <div class="card-body d-flex flex-column pt-5 mt-2">
-                <p class="card-title p-costum h5 m-0">Tempat, Tanggal Lahir</p>
+                <p class="card-title p-costum h5 m-0">Date of birth</p>
                 <p class="card-text p-costum m-0 mb-2">{{getDetail.tempat_lahir}} {{getDetail.tanggal_lahir}}</p>
-                <p class="card-title p-costum h5 m-0">Pendidikan</p>
+                <p class="card-title p-costum h5 m-0">Education</p>
                 <p class="card-text p-costum m-0 mb-2">{{getDetail.pendidikan}}</p>
-                <p class="card-title p-costum h5 m-0">Pekerjaan</p>
+                <p class="card-title p-costum h5 m-0">Profession</p>
                 <p class="card-text p-costum m-0 mb-2">{{getDetail.pekerjaan}}</p>
               </div>
             </div>
@@ -40,13 +40,13 @@
           <div class="row rounded rounded-3 shadow" style="min-height: 30vh; border: 0.1rem solid #E57373;">
             <div class="col-6">
               <div class="card-body d-flex flex-column">
-                <p class="card-title p-costum m-0 h5 mb-1">Visi</p>
+                <p class="card-title p-costum m-0 h5 mb-1">Vision</p>
                 <p class="card-text p-costum m-0 mb-2">{{getDetail.visi}}</p>
               </div>
             </div>
             <div class="col-6">
               <div class="card-body d-flex flex-column">
-                <p class="card-title p-costum m-0 h5 mb-1">Misi</p>
+                <p class="card-title p-costum m-0 h5 mb-1">Mission</p>
                 <p class="card-text p-costum m-0 mb-2">{{getDetail.misi}}</p>
               </div>
             </div>
