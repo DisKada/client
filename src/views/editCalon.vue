@@ -76,6 +76,8 @@ export default {
           })
         })
       } else {
+        this.$store.commit('uploadImg', this.getEdit.image)
+        this.$store.dispatch('edit', id)
         console.log('file type must be png/jpg/jpeg and image size too more than 100Kb')
       }
     },
