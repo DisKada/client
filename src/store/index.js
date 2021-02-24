@@ -28,7 +28,9 @@ export default new Vuex.Store({
       pendidikan: '',
       calon: '',
       image: '',
-      pekerjaan: ''
+      pekerjaan: '',
+      tempat_lahir: '',
+      tanggal_lahir: ''
     },
     getEdit: {
       id: 0,
@@ -100,6 +102,8 @@ export default new Vuex.Store({
       state.profile.image = payload.image
       state.profile.pekerjaan = payload.pekerjaan
       state.profile.email = payload.email
+      state.profile.tanggal_lahir = payload.tanggal_lahir
+      state.profile.tempat_lahir = payload.tempat_lahir
     },
     fetchAllVerified (state, payload) {
       state.profiles = payload

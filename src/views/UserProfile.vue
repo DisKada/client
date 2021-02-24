@@ -3,44 +3,44 @@
     <Navbar/>
     <div class="container-fluid ps-5">
       <div class="row" style="min-height: 100vh">
-        <div class="col-4 d-flex flex-column align-items-center justify-content-center rounded-3">
+        <div class="col-4 d-flex flex-column align-items-center justify-content-center" style="border: 0.3rem solid #E57373;">
           <img
             :src="profile.image"
-            class="img-fluid ms-5 p-3"
+            class="img-fluid ms-5 p-4"
             alt="User Pict"
             style="max-height: 80vh; min-height: 50vh;"
           />
         </div>
         <div class="col-8 d-flex flex-column align-items-center justify-content-evenly">
-          <div class="container-lg mb-3 border-bottom">
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Nama</h5>
             <p class="m-1 p-costum">{{profile.username}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Daerah Pencalonan</h5>
             <p class="m-1 p-costum">{{profile.calon}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Partai Pengusung</h5>
             <p class="m-1 p-costum">{{profile.partai}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Tempat, Tanggal Lahir</h5>
-            <p class="m-1 p-costum">{{profile.tempat_lahir}}, {{profile.tanggal_lahir}}</p>
+            <p class="m-1 p-costum">{{profile.tempat_lahir}} {{profile.tanggal_lahir}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Pendidikan</h5>
             <p class="m-1 p-costum">{{profile.pendidikan}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
+          <div class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Pekerjaan</h5>
             <p class="m-1 p-costum">{{profile.pekerjaan}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Visi</h5>
             <p class="m-1 p-costum">{{profile.visi}}</p>
           </div>
-          <div class="container-lg mb-3 border-bottom">
+          <div v-if="profile.status === 'verified'" class="container-lg mb-3" style="border-bottom: 0.1rem solid #FFCDD2;">
             <h5 class="m-1 text-muted heading">Misi</h5>
             <p class="m-1 p-costum">{{profile.misi}}</p>
           </div>
