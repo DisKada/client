@@ -3,14 +3,13 @@
     <div class="main">
         <div class="main__left">
           <div class="main__videos d-flex flex-column">
-              <h4 v-if="isCreator">{{(Object.keys(otherPlayers)[0].toString().split('-')[1])}}</h4>
-              <p>{{(Object.keys(otherPlayers).length)}}</p>
               <div id="video-grid">
+                <h4>{{(Object.keys(otherPlayers)[0].toString(). split('-')[1])}}</h4>
               </div>
           </div>
           <div class="main__controls">
               <div class="main__controls__block">
-                <div  v-if="profile.status === 'verified'" @click="muteUnmute" class="main__controls__button main__mute_button">
+                <div @click="muteUnmute" class="main__controls__button main__mute_button">
                   <div v-if = "muted === true" class="d-flex flex-column">
                     <i class="fas fa-microphone"></i>
                     <span>Mute</span>                  
@@ -21,7 +20,7 @@
                   </div>
                   
                 </div>
-                <div  v-if="profile.status === 'verified'" @click="playStop" class="main__controls__button main__video_button" >
+                <div @click="playStop" class="main__controls__button main__video_button" >
                   <div v-if = "videoShare === true" class="d-flex flex-column">
                     <i class="fas fa-video"></i>
                     <span>Stop Video</span>

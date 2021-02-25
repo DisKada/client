@@ -1,12 +1,21 @@
 <template>
   <div>
       <Navbar/>
-      <h1>List Room</h1>
-      <div class="listRoom">
+      <h4 class="heading pt-5">List Room</h4>
+      <div class="listRoom" v-if="rooms.length !== 0">
           <ol class="articles">
           <RoomCard v-for="(room) in rooms" :key="room.id" :peer="peer" :peerId='peerId' :room="room" />
           </ol>
           <div class="createRoom" v-if="profile.status === 'verified'">
+            <button @click.prevent="createRoom" class="buttonCreateRoom">create room</button>
+          </div>
+      </div>
+      <div class="listRoom mt-5" v-else>
+        <div class="articles d-flex flex-column">
+         <h4 class="heading">There's No Rooms Available</h4>
+         <div class="noRoom"></div>
+        </div>
+         <div class="createRoom" v-if="profile.status === 'verified'">
             <button @click.prevent="createRoom" class="buttonCreateRoom">create room</button>
           </div>
       </div>

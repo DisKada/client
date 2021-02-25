@@ -4,4 +4,16 @@
     justify-content: center;
     margin-left: 100px;
     margin-right: 100px;
+    height: 100vh;
 }
+
+.noRoom {
+    overflow-x: hidden;
+    margin-top: -30vh;
+    width: 100%;
+    height: 100vh;
+    background-image: url("../room-available.svg");
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+  }

@@ -126,6 +126,8 @@ export default new Vuex.Store({
       state.profile.image = payload.image
       state.profile.pekerjaan = payload.pekerjaan
       state.profile.email = payload.email
+      state.profile.tanggal_lahir = payload.tanggal_lahir
+      state.profile.tempat_lahir = payload.tempat_lahir
     },
     fetchAllVerified (state, payload) {
       state.profiles = payload
@@ -153,6 +155,8 @@ export default new Vuex.Store({
       state.getDetail.calon = payload.calon
       state.getDetail.image = payload.image
       state.getDetail.pekerjaan = payload.pekerjaan
+      state.getDetail.tanggal_lahir = payload.tanggal_lahir
+      state.getDetail.tempat_lahir = payload.tempat_lahir
     },
     uploadImg (state, payload) {
       state.getEdit.image = payload
@@ -331,7 +335,7 @@ export default new Vuex.Store({
     edit (context, payload) {
       const headers = { access_token: localStorage.access_token }
       const obj = context.state.getEdit
-      // console.log(obj, '<<<<<edit action')
+      console.log(obj, '<<<<<edit action')
       axios
         .put(`/users/${payload}`, obj, { headers })
         .then(response => {

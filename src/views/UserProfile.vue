@@ -4,7 +4,7 @@
   <div class="user-profile">
     <div class="container-fluid ps-5">
       <div class="row" style="min-height: 100vh">
-        <div class="col-4 d-flex flex-column align-items-center justify-content-center" style="border: 0.3rem solid #E57373;">
+        <div class="col-4 d-flex flex-column align-items-center justify-content-center" style="border-right: 0.1rem solid #FFCDD2;">
           <img
             :src="profile.image"
             class="img-fluid ms-5 p-4"
