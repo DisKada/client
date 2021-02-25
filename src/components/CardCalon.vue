@@ -30,5 +30,5 @@ export default {
 </script>
 
 <style scoped>
-  @import '../assets/styles/newCss.css';
-</style>
+  @import '../assets/styles/newCss.css';<<<<<<<kemas/wiring
+</style>>>>>>>> development

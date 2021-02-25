@@ -16,7 +16,7 @@
               </div>
             </div>
             <div class="col-5">
-              <div class="card-body d-flex flex-column pt-5 mt-2">
+              <div class="card-body d-flex flex-column pt-5 mt-2"><<<<<<< kemas/wiring
                  <p class="card-title p-costum h5 m-0">Name</p>
                 <p class="card-text p-costum m-0 mb-1">{{getDetail.username}}</p>
                 <br>
@@ -25,7 +25,7 @@
                 <br>
                  <p class="card-title p-costum h5 m-0">Party</p>
                 <p class="card-text p-costum m-0 ">{{getDetail.partai}}</p>
-                <br>
+                <br>>>>>>>> development
               </div>
             </div>
             <div class="col-4">
