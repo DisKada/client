@@ -17,9 +17,15 @@
             </div>
             <div class="col-5">
               <div class="card-body d-flex flex-column pt-5 mt-2">
-                <p class="card-title p-costum m-0 h4 mb-1">{{getDetail.username}}</p>
-                <p class="card-text p-costum m-0 h5 mb-2">{{getDetail.calon}}</p>
-                <p class="card-text p-costum m-0 h5">{{getDetail.partai}}</p>
+                 <p class="card-title p-costum h5 m-0">Name</p>
+                <p class="card-text p-costum m-0 mb-1">{{getDetail.username}}</p>
+                <br>
+                 <p class="card-title p-costum h5 m-0">Candidate</p>
+                <p class="card-text p-costum m-0 mb-2">{{getDetail.calon}}</p>
+                <br>
+                 <p class="card-title p-costum h5 m-0">Party</p>
+                <p class="card-text p-costum m-0 ">{{getDetail.partai}}</p>
+                <br>
               </div>
             </div>
             <div class="col-4">
