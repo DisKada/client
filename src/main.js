@@ -19,7 +19,7 @@ firebase.initializeApp({
 
 Vue.use(new VueSocketIO({
   debug: false,
-  connection: 'http://localhost:3000',
+  connection: 'https://diskada-new-server.herokuapp.com/',
   vuex: {
     store,
     actionPrefix: 'SOCKET_',
