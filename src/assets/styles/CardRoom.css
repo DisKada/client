@@ -121,6 +121,12 @@
     justify-content: space-between;
   }
   
+  .articles__footer button {
+    width: 150px;
+    margin: auto;
+    padding: 10px 0 10px 0;
+  }
+
   .articles__link:hover .articles__content--rhs {
     background-color: #e6e6e6;
     transform: rotateY(-50deg);

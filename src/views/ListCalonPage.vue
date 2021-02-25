@@ -7,8 +7,8 @@
     >
       <div
         class="container-fluid text-center"
-      >
-        <h4 class="heading m-0">List of candidates for Regional Head</h4>
+      ><<<<<<< kemas/wiring
+        <h4 class="heading pt-5">List of candidates for Regional Head</h4>>>>>>>> development
       </div>
       <div class="container-fluid p-5">
         <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 row-cols-xxl-6 g-4">
@@ -22,7 +22,6 @@
 <script>
 import Navbar from '../components/Navbar'
 import CardCalon from '../components/CardCalon'
-
 export default {
   name: 'Home',
   components: {
@@ -47,5 +46,5 @@ export default {
   @import '../assets/styles/CardCalon.css';
   /* .list-room {
     text-align: justify;
-  } */
-</style>
+  } *
+</style>>>>>>>> development

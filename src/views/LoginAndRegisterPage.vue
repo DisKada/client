@@ -28,8 +28,8 @@
                         <button class="ghost" id="signIn">Sign In</button>
                     </div>
                     <div class="overlay-panel overlay-right">
-                        <h1>Hello, Friend!</h1>
-                        <p>Enter your personal details and start journey with us</p>
+                        <h1>DisKada</h1>
+                        <p>interact with your governor candidate!</p>
                         <button class="ghost" id="signUp">Sign Up</button>
                     </div>
                 </div>
@@ -58,6 +58,9 @@ export default {
     toLogin () {
       // console.log('masuk sini')
       this.$store.dispatch('register', this.userRegist)
+      this.userRegist.username = ''
+      this.userRegist.email = ''
+      this.userRegist.password = ''
     },
     toHome () {
       // console.log('masuk sini')

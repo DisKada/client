@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from '../api/axios'
 import router from '../router/index'
+import Swal from 'sweetalert2'
 
 Vue.use(Vuex)
 
@@ -9,7 +10,6 @@ export default new Vuex.Store({
   state: {
     msg: [],
     roomName: '',
-    socket: null,
     isCreator: false,
     otherPlayers: {},
     myKey: '',
@@ -17,6 +17,9 @@ export default new Vuex.Store({
     rooms: [],
     myName: '',
     errorMsg: '',
+    myId: '',
+    isConnected: null,
+    isDisconnected: null,
     profile: {
       id: 0,
       username: '',
@@ -60,9 +63,14 @@ export default new Vuex.Store({
       tempat_lahir: ''
     },
     profiles: [],
-    isLoading: true
+    maxPlayer: 0,
+    counter: 0
   },
   mutations: {
+    maxPlayer (state, payload) {
+      console.log(payload, 'dr mutation')
+      state.maxPlayer = payload
+    },
     resetState (state, payload) {
       state.rooms = []
       state.room = ''
@@ -78,7 +86,7 @@ export default new Vuex.Store({
     },
     setOtherPlayers (state, payload) {
       delete payload[state.myKey]
-      console.log(payload)
+      console.log(payload,'<<<<<<<<<<<<<< players baru')
       state.otherPlayers = payload
     },
     setRoom (state, payload) {
@@ -92,6 +100,18 @@ export default new Vuex.Store({
     },
     setMyName (state, payload) {
       state.myName = payload
+    },
+    setMyId (state, payload) {
+      state.myId = payload
+    },
+    setIsCreator (state, payload) {
+      state.isCreator = payload
+    },
+    setConnected (state, payload) {
+      state.isConnected = payload
+    },
+    setDisconnected (state, payload) {
+      state.isDisconnected = payload
     },
     fetchProfile (state, payload) {
       // console.log(payload, '<<<<dr mutation')
@@ -111,9 +131,6 @@ export default new Vuex.Store({
     },
     fetchAllVerified (state, payload) {
       state.profiles = payload
-    },
-    isLoadingHandler (state, payload) {
-      state.isLoading = payload
     },
     getEdit (state, payload) {
       state.getEdit.id = payload.id
@@ -152,9 +169,18 @@ export default new Vuex.Store({
     },
     clearMsg (state, payload) {
       state.msg = []
+    },
+    counter (state, payload) {
+      state.counter = payload
     }
   },
   actions: {
+    SOCKET_counter (context, payload) {
+      context.commit('counter', payload)
+    },
+    SOCKET_maxPlayer (context, payload) {
+      context.commit('maxPlayer', payload)
+    },
     SOCKET_msgServer (context, payload) {
       // console.log(payload, '<<<<< dr server socket')
       context.commit('setMsg', payload)
@@ -189,11 +215,26 @@ export default new Vuex.Store({
       // console.log('ini dari server endroom')
       router.push('/rooms')
     },
+    SOCKET_userConnected(context, payload) {
+      console.log(payload, '<<<<--- yang di dari conneted')
+      context.commit('setMyId', payload)
+      context.commit('setConnected',true)
+    },
+    SOCKET_userDisconnected(context, payload) {
+      console.log(payload, '<<<<--- yang di dari dosconneted')
+      context.commit('setMyId', payload)
+      context.commit('setDisconnected',true)
+    },
     login (context, payload) {
       // console.log(payload, '<<<<')
       axios
         .post('/users/login', payload)
         .then(response => {
+          Swal.fire({
+            icon: 'success',
+            title: `Hi ${payload.email} !`,
+            text: 'Welcome to diskada '
+          })
           // console.log('masukk sinii')
           localStorage.setItem('access_token', response.data.access_token)
           localStorage.setItem('username', response.data.username)
@@ -202,19 +243,34 @@ export default new Vuex.Store({
           router.push('/')
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.message
+          })
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.message
+          })
         })
     },
     register (context, payload) {
       axios
         .post('/users/register', payload)
         .then(response => {
-          console.log(response.data)
-          // context.commit('errHandling', '')
-          // router.push('/login&register')
+          Swal.fire({
+            icon: 'success',
+            title: 'Your Email Success To Register',
+            text: `Please Remember Your Email is : ${response.data.email}`
+          })
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err.response.data.message
+          })
         })
     },
     fetchProfile (context, payload) {
@@ -224,7 +280,7 @@ export default new Vuex.Store({
       axios
         .get(`/users/${id}`, { headers })
         .then(response => {
-          console.log(response.data, '<<<<<')
+          // console.log(response.data, '<<<<<')
           context.commit('fetchProfile', response.data)
         })
         .catch(err => {
@@ -236,7 +292,7 @@ export default new Vuex.Store({
       axios
         .get('/users', { headers })
         .then(response => {
-          console.log(response.data, '<<<<<')
+          // console.log(response.data, '<<<<<')
           context.commit('fetchAllVerified', response.data)
         })
         .catch(err => {
@@ -244,8 +300,25 @@ export default new Vuex.Store({
         })
     },
     logout (context, payload) {
-      localStorage.clear()
-      router.push('/login&register')
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'You can back any time to visit Us',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: "Yes, i'm leaving~"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          localStorage.clear()
+          router.push('/login&register')
+          Swal.fire({
+            icon: 'success',
+            title: 'Good Bye',
+            text: 'Thank you for your visit, have a nice day'
+          })
+        }
+      })
     },
     getEdit (context, payload) {
       const headers = { access_token: localStorage.access_token }
@@ -266,11 +339,19 @@ export default new Vuex.Store({
       axios
         .put(`/users/${payload}`, obj, { headers })
         .then(response => {
-          console.log(response.data, '<<<< dr server')
+          // console.log(response.data, '<<<< dr server')
+          Swal.fire({
+            icon: 'success',
+            text: `Profile edited`
+          })
           router.push(`/profile/${payload}`)
         })
         .catch(err => {
-          console.log(err)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something got wrong'
+          })
         })
     },
     getDetail (context, payload) {

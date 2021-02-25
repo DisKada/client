@@ -151,7 +151,6 @@
 import Navbar from '../components/Navbar'
 import firebase from 'firebase/app'
 import 'firebase/storage'
-
 export default {
   name: 'EditCalon',
   components: {

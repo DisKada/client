@@ -1,12 +1,21 @@
 <template>
   <div>
       <Navbar/>
-      <h1>List Room</h1>
-      <div class="listRoom">
+      <h4 class="heading pt-5">List Room</h4>
+      <div class="listRoom" v-if="rooms.length !== 0">
           <ol class="articles">
-          <RoomCard v-for="(room) in rooms" :key="room.id" :room="room"/>
+          <RoomCard v-for="(room) in rooms" :key="room.id" :peer="peer" :peerId='peerId' :room="room" />
           </ol>
           <div class="createRoom" v-if="profile.status === 'verified'">
+            <button @click.prevent="createRoom" class="buttonCreateRoom">create room</button>
+          </div>
+      </div>
+      <div class="listRoom mt-5" v-else>
+        <div class="articles d-flex flex-column">
+         <h4 class="heading">There's No Rooms Available</h4>
+         <div class="noRoom"></div>
+        </div>
+         <div class="createRoom" v-if="profile.status === 'verified'">
             <button @click.prevent="createRoom" class="buttonCreateRoom">create room</button>
           </div>
       </div>
@@ -18,18 +27,11 @@ import RoomCard from '../components/RoomCard'
 import Navbar from '../components/Navbar'
 import Swal from 'sweetalert2'
 import { mapState, mapMutations } from 'vuex'
-
+import { v4 as uuidV4 } from 'uuid'
 export default {
-  beforeRouteEnter (to, from, next) {
-    if (localStorage.getItem('username')) {
-      next()
-    } else {
-      next(false)
-    }
-  },
+  props:['peer','peerId'],
   created () {
     this.$store.commit('resetState')
-    // this.listenOnSocketEvent()
     this.listRoom()
     this.$store.dispatch('fetchProfile')
   },
@@ -38,7 +40,6 @@ export default {
     return {
       roomName: '',
       roomList: [],
-      loading: false,
       palyerName: localStorage.getItem('username')
     }
   },
@@ -49,8 +50,6 @@ export default {
   computed: {
     ...mapState(['myName']),
     rooms () {
-      // console.log(this.$store.state.rooms, 'ini masuk')
-      // this.loading = false
       return this.$store.state.rooms
     },
     showError () {
@@ -58,6 +57,9 @@ export default {
     },
     profile () {
       return this.$store.state.profile
+    },
+    buttonJOin () {
+      return this.$store.state.buttonJoin
     }
   },
   methods: {
@@ -65,21 +67,20 @@ export default {
     listRoom () {
       this.$socket.emit('get-rooms')
       this.setMyName(this.palyerName)
-      this.loading = true
     },
     async createRoom () {
       const { value: formValues } = await Swal.fire({
         title: 'Buat Room',
         html:
           '<label>Nama Room</label>' +
-          '<input id="swal-input1" class="swal2-input">' +
-          '<label>Jumlah Maksimal Peserta</label>' +
-          '<input id="swal-input2" class="swal2-input">',
+          '<input id="swal-input1" class="swal2-input">', 
+          // '<label>Jumlah Maksimal Peserta</label>' +
+          // '<input id="swal-input2" class="swal2-input">',
         focusConfirm: false,
         preConfirm: () => {
           return [
             document.getElementById('swal-input1').value,
-            document.getElementById('swal-input2').value
+            // document.getElementById('swal-input2').value
           ]
         }
       })
@@ -87,10 +88,11 @@ export default {
         Swal.fire(JSON.stringify(formValues))
       }
       const payload = {
-        name: formValues[0],
-        creator: this.myName
+        name: formValues[0] + '-' + uuidV4(),
+        creator: this.myName,
+        // max: Number(formValues[1])
       }
-      this.$socket.emit('create-room', payload)
+      this.$socket.emit('create-room', payload, this.peerId)
     }
   },
   destoyed () {
