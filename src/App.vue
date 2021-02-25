@@ -8,9 +8,10 @@
 export default {
   mounted () {
     this.peer = new Peer(undefined, {
-      path: '/peerjs',
-      host: '/',
-      port: '3000'
+      secure: true,
+      host: 'diskada-new-server.herokuapp.com',
+      port: '443',
+      path: '/peerjs'
     })
     this.peer.on('open', id => {
       console.log(id,'<<<<< dari app')
