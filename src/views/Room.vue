@@ -2,7 +2,7 @@
   <div>
     <div class="main">
         <div class="main__left">
-          <div class="main__videos d-flex flex-column align-items-start">
+          <div class="main__videos">
               <!-- <h4>{{(Object.keys(otherPlayers)[0].toString(). split('-')[1])}}</h4> -->
               <div id="video-grid">
               </div>
